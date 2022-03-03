@@ -1,18 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { withRouter } from "react-router-dom";
+import React from "react";
+import { useParams } from "react-router-dom";
 import MovieDetails from "../components/movieDetails";
 import PageTemplate from "../components/templateMoviePage";
-import { getMovie } from "../api/tmdb-api";
+import useMovie from "../hooks/useMovie";
 
 const MovieDetailsPage = (props) => {
-  const { id } = props.match.params;
-  const [movie, setMovie] = useState(null);
-
-  useEffect(() => {
-    getMovie(id).then((movie) => {
-      setMovie(movie);
-    });
-  }, [id]);
+  const { id } = useParams();
+  const [movie] = useMovie(id);  // New
 
   return (
     <>
@@ -29,4 +23,4 @@ const MovieDetailsPage = (props) => {
   );
 };
 
-export default withRouter(MovieDetailsPage);
+export default MovieDetailsPage;
