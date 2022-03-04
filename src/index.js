@@ -5,26 +5,19 @@ import HomePage from "./pages/homePage";
 import MoviePage from "./pages/movieDetailsPage";
 import FavouriteMoviesPage from "./pages/favoriteMoviesPage";
 import MovieReviewPage from "./pages/movieReviewPage";
+import UpcomingMoviesPage from "./pages/UpcomingMoviesPage";
 import SiteHeader from './components/siteHeader'
 
 const App = () => {
   return (
     <BrowserRouter>
-     <SiteHeader />      {/* New Header  */}
-        
-      <ul>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
-          <Link to="/movies/favourites">Favourites</Link>
-        </li>
-      </ul>
+     <SiteHeader />
       <Switch>
+        <Route exact path="/movies/upcoming" component={UpcomingMoviesPage} /> 
         <Route exact path="/movies/favourites" component={FavouriteMoviesPage} />
         <Route path="/movies/:id" component={MoviePage} />
         <Route path="/reviews/:id" component={MovieReviewPage} />
-        <Route exact path="/" component={HomePage} />
+        <Route exact path="/" component={HomePage} />  
         <Redirect from="*" to="/" />
       </Switch>
     </BrowserRouter>
