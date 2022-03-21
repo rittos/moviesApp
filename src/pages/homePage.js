@@ -1,18 +1,39 @@
 import React, { useState, useEffect } from "react";
-import PageTemplate from '../components/templateMovieListPage'
+import PageTemplate from "../components/templateMovieListPage";
 import { getMovies } from "../api/tmdb-api";
-// import Pagination from '@material-ui/lab/Pagination';
-// import axios from 'axios';
+import useFiltering from "../hooks/useFiltering";
 import ReactPaginate from 'react-paginate';
 import './App.css'
+import MovieFilterUI, {
+  titleFilter,
+  genreFilter,
+} from "../components/movieFilterUI";
+
+const titleFiltering = {
+  name: "title",
+  value: "",
+  condition: titleFilter,
+};
+const genreFiltering = {
+  name: "genre",
+  value: "0",
+  condition: genreFilter,
+};
 
 const HomePage = (props) => {
+  //Pagination state properties
   const [perPage, setPerPage] = useState();
   const [page, setPage] = useState();
   const [pages, setPages] = useState();
+
   const [movies, setMovies] = useState([]);
-  const favourites = movies.filter(m => m.favourite)
-  localStorage.setItem('favourites', JSON.stringify(favourites))
+  const favourites = movies.filter((m) => m.favourite);
+  const { filterValues, setFilterValues, filterFunction } = useFiltering(
+    [],
+    [titleFiltering, genreFiltering]
+  );
+
+  localStorage.setItem("favourites", JSON.stringify(favourites));
 
   const addToFavourites = (movieId) => {
     const updatedMovies = movies.map((m) =>
@@ -21,6 +42,7 @@ const HomePage = (props) => {
     setMovies(updatedMovies);
   };
 
+  // pagination page click handler
   const handlePageClick = (event) => {
     let page = event.selected;
     page = page +1 ;
@@ -30,6 +52,13 @@ const HomePage = (props) => {
       setMovies(movies.results);
     });
    }
+
+  const changeFilterValues = (type, value) => {
+    const newf = { name: type, value: value };
+    const newFilters =
+      type === "title" ? [newf, filterValues[1]] : [filterValues[0], newf];
+    setFilterValues(newFilters);
+  };
 
   useEffect(() => {
     setPage(1);
@@ -43,26 +72,31 @@ const HomePage = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const displayedMovies = filterFunction(movies) 
+
   return (
-    
+    <>
     <div>
-    <PageTemplate
-      title='Discover Movies'
-      movies={movies}
-      selectFavourite={addToFavourites}
-    />
-    {/* <div style={{ display: 'block', padding: 10, backgroundColor: '#75cda4', marginTop: 10 }}>
-      <Pagination count={10} />
-    </div> */}
-    <ReactPaginate
-      previousLabel={'prev'}
-      nextLabel={'next'}
-      pageCount={pages}
-      onPageChange={handlePageClick}
-      containerClassName={'pagination'}
-      activeClassName={'active'}
-/>
+      <PageTemplate
+        title="Discover Movies"
+        movies={displayedMovies}
+        selectFavourite={addToFavourites}
+      />
+      <MovieFilterUI
+        filterInputChange={changeFilterValues}
+        titleFilter={filterValues[0].value}
+        genreFilter={filterValues[1].value}
+      />
+      <ReactPaginate
+            previousLabel={'prev'}
+            nextLabel={'next'}
+            pageCount={pages}
+            onPageChange={handlePageClick}
+            containerClassName={'pagination'}
+            activeClassName={'active'}
+      />
     </div>
+    </>
   );
 };
 export default HomePage;
