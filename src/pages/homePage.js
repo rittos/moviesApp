@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import PageTemplate from "../components/templateMovieListPage";
 import { getMovies } from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
@@ -30,22 +30,10 @@ const HomePage = (props) => {
   const [pages, setPages] = useState(100);
 
   const { data, error, isLoading, isError } = useQuery(["discover", page], getMovies);
-  
-  // const [movies, setMovies] = useState([]);
-  // const favourites = movies.filter((m) => m.favourite);
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [],
     [titleFiltering, genreFiltering]
   );
-
-  // localStorage.setItem("favourites", JSON.stringify(favourites));
-
-  // const addToFavourites = (movieId) => {
-  //   const updatedMovies = movies.map((m) =>
-  //     m.id === movieId ? { ...m, favourite: true } : m
-  //   );
-  //   setMovies(updatedMovies);
-  // };
 
   // pagination page click handler
   const handlePageClick = (event) => {
@@ -72,20 +60,6 @@ const HomePage = (props) => {
       type === "title" ? [newf, filterValues[1]] : [filterValues[0], newf];
     setFilterValues(newFilters);
   };
-
-  // useEffect(() => {
-  //   setPage(1);
-  //   // setPages(10);
-  //   setPerPage(10);
-  //   getMovies(page).then(movies => {
-  //     setMovies(movies.results);
-  //     // alert(movies.data.total_pages);
-  //     setPages(movies.total_pages);
-  //   });
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
-
-  // const displayedMovies = filterFunction(movies) 
 
   const movies = data ? data.results : [];
   const displayedMovies = filterFunction(movies);
