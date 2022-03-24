@@ -5,6 +5,7 @@ import useFiltering from "../hooks/useFiltering";
 import ReactPaginate from 'react-paginate';
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
+import AddToFavouritesIcon from '../components/cardIcons/addToFavourites'
 import './App.css'
 import MovieFilterUI, {
   titleFilter,
@@ -88,10 +89,6 @@ const HomePage = (props) => {
 
   const movies = data ? data.results : [];
   const displayedMovies = filterFunction(movies);
-  // Redundant, but necessary to avoid app crashing.
-  const favourites = movies.filter((m) => m.favorite);
-  localStorage.setItem("favourites", JSON.stringify(favourites));
-  const addToFavourites = (movieId) => true;
 
   return (
     <>
@@ -99,7 +96,9 @@ const HomePage = (props) => {
       <PageTemplate
         title="Discover Movies"
         movies={displayedMovies}
-        selectFavourite={addToFavourites}
+        action={(movie) => {
+          return <AddToFavouritesIcon movie={movie} />
+        }}
       />
       <MovieFilterUI
         filterInputChange={changeFilterValues}
