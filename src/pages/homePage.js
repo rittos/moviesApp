@@ -25,7 +25,7 @@ const genreFiltering = {
 
 const HomePage = (props) => {
   //Pagination state properties
-  const [perPage, setPerPage] = useState();
+  // const [perPage, setPerPage] = useState();
   const [page, setPage] = useState(1);
   const [pages, setPages] = useState(100);
 
