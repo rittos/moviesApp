@@ -1,32 +1,45 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import PageTemplate from '../components/templateMovieListPage'
 import { getUpcomingMovies } from "../api/tmdb-api";
+import { useQuery } from "react-query";
+import AddToFavouritesIcon from '../components/cardIcons/addToFavourites'
+import useFiltering from "../hooks/useFiltering";
+import MovieFilterUI, {
+  titleFilter,
+  genreFilter,
+} from "../components/movieFilterUI";
 
 const UpcomingMovies = (props) => {
-  const [upcomingmovies, setUpcomingMovies] = useState([]);
-  const favourites = upcomingmovies.filter(m => m.favourite)
-  localStorage.setItem('favourites', JSON.stringify(favourites))
 
-  const addToFavourites = (movieId) => {
-    const updatedMovies = upcomingmovies.map((m) =>
-      m.id === movieId ? { ...m, favourite: true } : m
-    );
-    setUpcomingMovies(updatedMovies);
+  const titleFiltering = {
+    name: "title",
+    value: "",
+    condition: titleFilter,
+  };
+  const genreFiltering = {
+    name: "genre",
+    value: "0",
+    condition: genreFilter,
   };
 
-  useEffect(() => {
-    getUpcomingMovies().then(upcomingmovies => {
-        setUpcomingMovies(upcomingmovies);
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const { data, error, isLoading, isError } = useQuery(["upcoming"], getUpcomingMovies);
+  const { filterValues, setFilterValues, filterFunction } = useFiltering(
+    [],
+    [titleFiltering, genreFiltering]
+  );
+
+  const movies = data ? data.results : [];
+  const displayedMovies = filterFunction(movies);
 
   return (
     <PageTemplate
-      title='Upcoming Movies'
-      movies={upcomingmovies}
-      selectFavourite={addToFavourites}
-    />
+    title="Discover Movies"
+    movies={displayedMovies}
+    action={(movie) => {
+      return <AddToFavouritesIcon movie={movie} />
+    }}
+  />
+
   );
 };
 export default UpcomingMovies;
