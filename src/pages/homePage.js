@@ -40,11 +40,28 @@ const HomePage = (props) => {
     let currentpage = event.selected;
     currentpage = currentpage +1 ;
     setPage(currentpage);
-    setPages(100);
+    // setPages(100);
     // alert(page);
     // getMovies(page).then(movies => {
     //   setMovies(movies.results);
     // });
+   }
+
+   const nextClickHandler = (event) => {
+    let currentpage = page;
+    currentpage = currentpage +1 ;
+    setPage(currentpage);
+   }
+   const previousClickHandler = (event) => {
+    let currentpage = page;
+    if(currentpage ==1)
+    {
+
+    }
+    else{
+      currentpage = currentpage -1 ;
+    }
+    setPage(currentpage);
    }
 
   if (isLoading) {
@@ -79,7 +96,7 @@ const HomePage = (props) => {
         titleFilter={filterValues[0].value}
         genreFilter={filterValues[1].value}
       />
-      <ReactPaginate
+      {/* <ReactPaginate
             previousLabel={'prev'}
             nextLabel={'next'}
             pageCount={pages}
@@ -87,7 +104,10 @@ const HomePage = (props) => {
             containerClassName={'pagination'}
             activeClassName={'active'}
             
-      />
+      /> */}
+      <button style={{backgroundColor: "#646496", color: "white", padding:5, borderRadius: 5, marginTop: 5}} disabled={page == 1? true:false} onClick={previousClickHandler}>Previous</button>
+      <span style={{ backgroundColor: "#ff4557", margin:3,padding:5,borderRadius:3, color: "white"}}> {page} </span>
+      <button style={{backgroundColor: "#646496", color: "white", padding:5, borderRadius: 5, marginTop: 5}} onClick= {nextClickHandler}>Next</button>
     </div>
     </>
   );
