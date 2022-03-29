@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect, useState} from "react";
 import { useQuery } from "react-query";
 import Spinner from '../spinner'
 import { makeStyles } from "@material-ui/core/styles";
@@ -11,7 +11,7 @@ import TextField from "@material-ui/core/TextField";
 import SearchIcon from "@material-ui/icons/Search";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-import { getGenres } from "../../api/tmdb-api";
+import { getGenres, getLanguages } from "../../api/tmdb-api";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,6 +29,15 @@ const useStyles = makeStyles((theme) => ({
 export default function FilterMoviesCard(props) {
   const classes = useStyles();
   const { data, error, isLoading, isError } = useQuery("genres", getGenres);
+  // const { ldata } = getLanguages ; useQuery("languages", getLanguages);
+  const [languages, setLanguages] = useState([]);
+
+  useEffect(() => {
+    getLanguages().then((languages) => {
+      setLanguages(languages);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (isLoading) {
     return <Spinner />;
@@ -37,6 +46,7 @@ export default function FilterMoviesCard(props) {
   if (isError) {
     return <h1>{error.message}</h1>;
   }
+
   const genres = data.genres;
   if (genres[0].name !== "All") {
     genres.unshift({ id: "0", name: "All" });
@@ -44,7 +54,7 @@ export default function FilterMoviesCard(props) {
 
   const handleUserImput = (e, type, value) => {
     e.preventDefault();
-    props.onUserInput(type, value); // NEW
+    props.onUserInput(type, value);
   };
 
   const handleTextChange = (e, props) => {
@@ -54,7 +64,10 @@ export default function FilterMoviesCard(props) {
   const handleGenreChange = (e) => {
     handleUserImput(e, "genre", e.target.value);
   };
-
+  const handleLanguageChange = (e) => {
+    handleUserImput(e, "language", e.target.value);
+  };
+  
   return (
     <>
     <Card className={classes.root} variant="outlined">
@@ -84,6 +97,23 @@ export default function FilterMoviesCard(props) {
               return (
                 <MenuItem key={genre.id} value={genre.id}>
                   {genre.name}
+                </MenuItem>
+              );
+            })}
+          </Select>
+        </FormControl>
+        <FormControl className={classes.formControl}>
+          <InputLabel id="language-label">Language</InputLabel>
+          <Select
+            labelId="language-label"
+            id="language-select"
+            value={props.languageFilter}
+            onChange={handleLanguageChange}
+          >
+            {languages.map((language) => {
+              return (
+                <MenuItem key={language.iso_639_1} value={language.iso_639_1}>
+                  {language.english_name}
                 </MenuItem>
               );
             })}

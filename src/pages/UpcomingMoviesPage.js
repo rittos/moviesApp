@@ -8,6 +8,7 @@ import Spinner from "../components/spinner";
 import MovieFilterUI, {
   titleFilter,
   genreFilter,
+  languageFilter
 } from "../components/movieFilterUI";
 
 const UpcomingMovies = (props) => {
@@ -22,11 +23,15 @@ const UpcomingMovies = (props) => {
     value: "0",
     condition: genreFilter,
   };
-
+  const languageFiltering = {
+    name: "language",
+    value: "",
+    condition: languageFilter,
+  };
   const { data, error, isLoading, isError } = useQuery(["upcoming"], getUpcomingMovies);
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [],
-    [titleFiltering, genreFiltering]
+    [titleFiltering, genreFiltering, languageFiltering]
   );
 
   if (isLoading) {
@@ -38,8 +43,24 @@ const UpcomingMovies = (props) => {
 
   const changeFilterValues = (type, value) => {
     const newf = { name: type, value: value };
-    const newFilters =
-      type === "title" ? [newf, filterValues[1]] : [filterValues[0], newf];
+    var newFilters = [];
+      // type === "title" ? [newf, filterValues[1]] : [filterValues[0], newf];
+      switch(type){
+        case "title":
+          newFilters = [newf, filterValues[1], filterValues[2]];
+          break;
+        case "genre":
+          newFilters =  [filterValues[0], newf, filterValues[2]];
+          break;
+        case "language":
+          newFilters =  [filterValues[0],filterValues[1], newf];
+          break;
+        default:
+          newFilters = [];
+          break;
+
+
+      }
     setFilterValues(newFilters);
   };
   const movies = data ? data.results : [];
@@ -58,6 +79,7 @@ const UpcomingMovies = (props) => {
     filterInputChange={changeFilterValues}
     titleFilter={filterValues[0].value}
     genreFilter={filterValues[1].value}
+    languageFilter={filterValues[2].value}
     />
   </>
   );

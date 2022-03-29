@@ -5,7 +5,7 @@ import { useQueries } from "react-query";
 import { getMovie } from "../api/tmdb-api";
 import Spinner from "../components/spinner";
 import useFiltering from "../hooks/useFiltering";
-import MovieFilterUI, { titleFilter } from "../components/movieFilterUI";
+import MovieFilterUI, { languageFilter, titleFilter } from "../components/movieFilterUI";
 import RemoveFromFavourites from "../components/cardIcons/removeFromFavourites";
 import WriteReview from "../components/cardIcons/writeReview";
 
@@ -24,11 +24,17 @@ export const genreFiltering = {
   },
 };
 
+const languageFiltering = {
+  name: "language",
+  value: "",
+  condition: languageFilter,
+};
+
 const FavouriteMoviesPage = () => {
   const { favourites: movieIds } = useContext(MoviesContext);
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [],
-    [titleFiltering, genreFiltering]
+    [titleFiltering, genreFiltering, languageFiltering]
   );
 
   // Create an array of queries and run in parallel.
@@ -56,8 +62,24 @@ const FavouriteMoviesPage = () => {
 
   const changeFilterValues = (type, value) => {
     const newf = { name: type, value: value };
-    const newFilters =
-      type === "title" ? [newf, filterValues[1]] : [filterValues[0], newf];
+    var newFilters = [];
+      // type === "title" ? [newf, filterValues[1]] : [filterValues[0], newf];
+      switch(type){
+        case "title":
+          newFilters = [newf, filterValues[1], filterValues[2]];
+          break;
+        case "genre":
+          newFilters =  [filterValues[0], newf, filterValues[2]];
+          break;
+        case "language":
+          newFilters =  [filterValues[0],filterValues[1], newf];
+          break;
+        default:
+          newFilters = [];
+          break;
+
+
+      }
     setFilterValues(newFilters);
   };
 
@@ -79,6 +101,7 @@ const FavouriteMoviesPage = () => {
         filterInputChange={changeFilterValues}
         titleFilter={filterValues[0].value}
         genreFilter={filterValues[1].value}
+        languageFilter={filterValues[2].value}
       />
     </>
   );

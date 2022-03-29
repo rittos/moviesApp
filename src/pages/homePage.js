@@ -10,6 +10,7 @@ import './App.css'
 import MovieFilterUI, {
   titleFilter,
   genreFilter,
+  languageFilter
 } from "../components/movieFilterUI";
 
 const titleFiltering = {
@@ -22,7 +23,11 @@ const genreFiltering = {
   value: "0",
   condition: genreFilter,
 };
-
+const languageFiltering = {
+  name: "language",
+  value: "0",
+  condition: languageFilter,
+};
 const HomePage = (props) => {
   //Pagination state properties
   // const [perPage, setPerPage] = useState();
@@ -32,7 +37,7 @@ const HomePage = (props) => {
   const { data, error, isLoading, isError } = useQuery(["discover", page], getMovies);
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [],
-    [titleFiltering, genreFiltering]
+    [titleFiltering, genreFiltering, languageFiltering]
   );
 
   // pagination page click handler
@@ -73,8 +78,24 @@ const HomePage = (props) => {
 
   const changeFilterValues = (type, value) => {
     const newf = { name: type, value: value };
-    const newFilters =
-      type === "title" ? [newf, filterValues[1]] : [filterValues[0], newf];
+    var newFilters = [];
+      // type === "title" ? [newf, filterValues[1]] : [filterValues[0], newf];
+      switch(type){
+        case "title":
+          newFilters = [newf, filterValues[1], filterValues[2]];
+          break;
+        case "genre":
+          newFilters =  [filterValues[0], newf, filterValues[2]];
+          break;
+        case "language":
+          newFilters =  [filterValues[0],filterValues[1], newf];
+          break;
+        default:
+          newFilters = [];
+          break;
+
+
+      }
     setFilterValues(newFilters);
   };
 
@@ -95,6 +116,7 @@ const HomePage = (props) => {
         filterInputChange={changeFilterValues}
         titleFilter={filterValues[0].value}
         genreFilter={filterValues[1].value}
+        languageFilter={filterValues[2].value}
       />
       {/* <ReactPaginate
             previousLabel={'prev'}
