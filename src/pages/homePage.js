@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import PageTemplate from "../components/templateMovieListPage";
 import { getMovies } from "../api/tmdb-api";
+import useSorting from "../hooks/useSorting";
 import useFiltering from "../hooks/useFiltering";
 import ReactPaginate from 'react-paginate';
 import { useQuery } from "react-query";
@@ -10,7 +11,8 @@ import './App.css'
 import MovieFilterUI, {
   titleFilter,
   genreFilter,
-  languageFilter
+  languageFilter,
+  paramSort
 } from "../components/movieFilterUI";
 
 const titleFiltering = {
@@ -25,19 +27,31 @@ const genreFiltering = {
 };
 const languageFiltering = {
   name: "language",
-  value: "0",
+  value: "",
   condition: languageFilter,
 };
+
+const paramSorting = {
+  name: "Title Ascending",
+  value: "title_asc",
+  condition: paramSort,
+};
+
 const HomePage = (props) => {
   //Pagination state properties
   // const [perPage, setPerPage] = useState();
   const [page, setPage] = useState(1);
-  const [pages, setPages] = useState(100);
+  // const [pages, setPages] = useState(100);
 
   const { data, error, isLoading, isError } = useQuery(["discover", page], getMovies);
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [],
     [titleFiltering, genreFiltering, languageFiltering]
+  );
+
+  const { sortValues, setSortValues, sortFunction } = useSorting(
+    [],
+    [paramSorting]
   );
 
   // pagination page click handler
@@ -99,8 +113,14 @@ const HomePage = (props) => {
     setFilterValues(newFilters);
   };
 
+  const changeSortValues = (type, value) => {
+    const sortValues = { name: type, value: value };
+    setSortValues(sortValues);
+  }
+
   const movies = data ? data.results : [];
-  const displayedMovies = filterFunction(movies);
+  var displayedMovies = filterFunction(movies);
+  displayedMovies = sortFunction(displayedMovies);
 
   return (
     <>
@@ -114,9 +134,11 @@ const HomePage = (props) => {
       />
       <MovieFilterUI
         filterInputChange={changeFilterValues}
+        sortInputChange={changeSortValues}
         titleFilter={filterValues[0].value}
         genreFilter={filterValues[1].value}
         languageFilter={filterValues[2].value}
+        paramSort={sortValues}
       />
       {/* <ReactPaginate
             previousLabel={'prev'}

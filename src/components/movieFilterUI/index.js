@@ -15,7 +15,21 @@ export const genreFilter = function (movie, value) {
 
 export const languageFilter = function (movie, value) {
   const languagecd = (value);
-  return languagecd != "0" && languagecd != "xx" ? movie.original_language.includes(languagecd) : true;
+  return languagecd != "" && languagecd != "xx" ? movie.original_language.includes(languagecd) : true;
+};
+
+export const paramSort = function (movies, sortValue) {
+  var sorted_out = movies;
+  if(sortValue === "title_asc")
+  {
+    sorted_out = movies.sort((a, b) => (a.title > b.title) ? 1 : -1)
+  }
+  else if(sortValue === "title_desc")
+  {
+    var temp = movies.sort((a, b) => (a.title > b.title) ? 1 : -1)
+    sorted_out = temp.reverse();
+  }
+  return sorted_out;
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -30,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MovieFilterUI = ({ filterInputChange, titleFilter, genreFilter, languageFilter }) => {
+const MovieFilterUI = ({ filterInputChange, sortInputChange, titleFilter, genreFilter, languageFilter, paramSort }) => {
   const classes = useStyles();
   const [drawerOpen, setDrawerOpen] = useState(false);
 
@@ -51,9 +65,11 @@ const MovieFilterUI = ({ filterInputChange, titleFilter, genreFilter, languageFi
       >
         <FilterCard
           onUserInput={filterInputChange}
+          onUserSortInput={sortInputChange}
           titleFilter={titleFilter}
           genreFilter={genreFilter}
           languageFilter={languageFilter}
+          paramSort={paramSort}
         />
       </Drawer>
     </>

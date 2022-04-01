@@ -32,6 +32,21 @@ export default function FilterMoviesCard(props) {
   // const { ldata } = getLanguages ; useQuery("languages", getLanguages);
   const [languages, setLanguages] = useState([]);
 
+  const [sortingoptions, setSortingOptions] = useState([
+    {
+      sortingCode: "none",
+      sortingName: "None"
+    },
+    {
+      sortingCode: "title_asc",
+      sortingName: "Title Ascending"
+    },
+    {
+      sortingCode: "title_desc",
+      sortingName: "Title Descending"
+    }
+  ]);
+
   useEffect(() => {
     getLanguages().then((languages) => {
       setLanguages(languages);
@@ -52,6 +67,14 @@ export default function FilterMoviesCard(props) {
     genres.unshift({ id: "0", name: "All" });
   }
 
+  //bringing No Language option at the top of the list
+  if(languages.length>0){
+    languages.filter((data) => data.iso_639_1 !== 'xx');
+    if (languages[0].english_name !== "No Language") {
+      languages.unshift({ iso_639_1: "xx", english_name: "No Language", name: "No Language" });
+  }
+}
+
   const handleUserImput = (e, type, value) => {
     e.preventDefault();
     props.onUserInput(type, value);
@@ -66,6 +89,14 @@ export default function FilterMoviesCard(props) {
   };
   const handleLanguageChange = (e) => {
     handleUserImput(e, "language", e.target.value);
+  };
+
+  const handleUserInputsort = (e, type, value) => {
+    e.preventDefault();
+    props.onUserSortInput(type, value);
+  };
+  const handleSortChange = (e) => {
+    handleUserInputsort(e, "sort", e.target.value);
   };
   
   return (
@@ -126,6 +157,24 @@ export default function FilterMoviesCard(props) {
           <Typography variant="h5" component="h1">
             <SearchIcon fontSize="large" />
             Sort the movies.
+
+            <FormControl className={classes.formControl}>
+          <InputLabel id="sort-label">Sort</InputLabel>
+          <Select
+            labelId="sort-label"
+            id="sort-select"
+            value={props.paramSort}
+            onChange={handleSortChange}
+          >
+            {sortingoptions.map((options) => {
+              return (
+                <MenuItem key={options.sortingCode} value={options.sortingCode}>
+                  {options.sortingName}
+                </MenuItem>
+              );
+            })}
+          </Select>
+        </FormControl>
           </Typography>
         </CardContent>
       </Card>
