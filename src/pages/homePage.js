@@ -138,7 +138,7 @@ const HomePage = (props) => {
         titleFilter={filterValues[0].value}
         genreFilter={filterValues[1].value}
         languageFilter={filterValues[2].value}
-        paramSort={sortValues}
+        paramSort={sortValues.value}
       />
       {/* <ReactPaginate
             previousLabel={'prev'}
