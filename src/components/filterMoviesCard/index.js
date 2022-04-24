@@ -29,7 +29,6 @@ const useStyles = makeStyles((theme) => ({
 export default function FilterMoviesCard(props) {
   const classes = useStyles();
   const { data, error, isLoading, isError } = useQuery("genres", getGenres);
-  // const { ldata } = getLanguages ; useQuery("languages", getLanguages);
   const [languages, setLanguages] = useState([]);
 
   const [sortingoptions, setSortingOptions] = useState([

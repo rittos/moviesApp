@@ -63,10 +63,10 @@ export default function FantasyMovieGenerator({ movie }) {
     <Grid container spacing={4}>
           <Grid item xs={6}>
             <div className={classes.stack}>
-              <TextField id="outlined-basic" label="Name" variant="outlined" /></div>
+              <TextField id="outlined-basic" required  label="Name" variant="outlined" /></div>
             <div className={classes.stack}>
               <TextField 
-                label="Runtime (Hours)" name="runtime" 
+                label="Runtime (Hours)" required  name="runtime" 
                 inputProps={{ maxLength: 4}} value={values1} type="text" 
                 onChange={handleRuntimeChange} className={classes.textfield} /> 
                 </div>
@@ -104,10 +104,11 @@ export default function FantasyMovieGenerator({ movie }) {
             </FormControl>
           </div>
             <div className={classes.stack}>
-                <TextField id="outlined-basic" label="Overview" variant="outlined" /></div>
+                <TextField id="outlined-basic" required  label="Overview" variant="outlined" /></div>
             <div className={classes.stack}>
               <TextField
                 id="date"
+                required 
                 label="Release Date"
                 type="date"
                 defaultValue="2021-01-01"
