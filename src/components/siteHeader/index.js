@@ -37,8 +37,9 @@ const SiteHeader = () => {
     { label: "Favorites", path: "/movies/favourites" },
     { label: "Popular People", path: "/people/popular" },
     { label: "Option 4", path: "/" },
+    { label: "Fantasy Movie", path: "/fantasymovie" },
   ];
-
+  
   const handleMenuSelect = (pageURL) => {
     history.push(pageURL);
   };
