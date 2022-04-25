@@ -14,6 +14,7 @@ import MoviesContextProvider from "./contexts/moviesContext";
 import AddMovieReviewPage from './pages/addMovieReviewPage'
 import peoplePage from "./pages/peopleDetailsPage";
 import FantasyMoviePage from "./pages/fantasyMoviewPage";
+import SearchMoviesPage from "./pages/searchMoviesPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -32,6 +33,7 @@ const App = () => {
      <SiteHeader />
      <MoviesContextProvider>
       <Switch>
+        <Route exact path="/movies/searchmovie" component={SearchMoviesPage} />
         <Route exact path="/fantasymovie" component={FantasyMoviePage} />
         <Route exact path="/people/popular" component={PopularPeoplesPage} />
         <Route path="/people/:id" component={peoplePage} />

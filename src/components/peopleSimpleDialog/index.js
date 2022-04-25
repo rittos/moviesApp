@@ -62,7 +62,8 @@ const style = {
               addbtnaction ={prop.addbtnaction} 
               action={(people) => {
               return <div people={people} />
-              }}></DialogPeopleList>
+              }}>
+              </DialogPeopleList>
             </Typography>
           </Box>
         </Modal>

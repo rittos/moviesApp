@@ -145,4 +145,20 @@ export const getMovies = (param) => {
       throw error
    });
   };
+
+  export const searchMovies = (param) => {
+    return fetch(
+      `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_TMDB_KEY}&include_adult=false&page=${param.queryKey[1]}&with_genres=${param.queryKey[2]}&language=${param.queryKey[3]}&with_cast=${param.queryKey[4]}&include_adult=${param.queryKey[5]}`
+      // `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&include_adult=false&page=${param.queryKey[1]}`
+      ).then((response) => {
+        if (!response.ok) {
+          throw new Error(response.json().message);
+        }
+        return response.json();
+      })
+      .catch((error) => {
+        throw error
+     });
+    };
+
   

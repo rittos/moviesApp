@@ -18,12 +18,17 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import Button from "@material-ui/core/Button";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   card: { maxWidth: 155, margin:10 },
   media: { height: 100 },
   horizontal: {float:"left"},
-  stack: {margin:25}
-});
+  stack: {margin:25},
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 220,
+    backgroundColor: "rgb(255, 255, 255)",
+  },
+}));
 
 export default function FantasyMovieGenerator({ movie }) {
   const classes = useStyles();

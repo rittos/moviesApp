@@ -61,13 +61,13 @@ export default function MovieCard({ movie, action }) {
       <CardContent>
         <Grid container>
           <Grid item xs={6}>
-            <Typography variant="h6" component="p">
+            <Typography variant="caption" component="p">
               <CalendarIcon fontSize="small" />
               {movie.release_date}
             </Typography>
           </Grid>
           <Grid item xs={6}>
-            <Typography variant="h6" component="p">
+            <Typography variant="caption" component="p">
               <StarRateIcon fontSize="small" />
               {"  "} {movie.vote_average}{" "}
             </Typography>
