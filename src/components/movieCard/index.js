@@ -14,6 +14,7 @@ import StarRateIcon from "@material-ui/icons/StarRate";
 import Grid from "@material-ui/core/Grid";
 import Avatar from "@material-ui/core/Avatar";
 import { MoviesContext } from "../../contexts/moviesContext";
+import { AuthContext } from "../../contexts/authContext";
 
 const useStyles = makeStyles({
   card: { maxWidth: 345 },
@@ -26,6 +27,7 @@ const useStyles = makeStyles({
 export default function MovieCard({ movie, action }) {
   const classes = useStyles();
   const { favourites } = useContext(MoviesContext);
+  const authcontext = useContext(AuthContext);
 
   if (favourites.find((id) => id === movie.id)) {
     movie.favourite = true;
@@ -38,7 +40,7 @@ export default function MovieCard({ movie, action }) {
       <CardHeader
       className={classes.header}
       avatar={
-        movie.favourite ? (
+        movie.favourite && authcontext.isAuthenticated ? (
           <Avatar className={classes.avatar}>
             <FavoriteIcon />
           </Avatar>

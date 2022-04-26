@@ -25,11 +25,6 @@ const MoviesContextProvider = (props) => {
       const result = await addMovietoFavourites(authcontext.userid, movie.id);
     }
     setFavourites(updatedFavourites);
-
-
-    // if (result.token) {
-
-    // }
   };
 
   // We will use this function in a later section

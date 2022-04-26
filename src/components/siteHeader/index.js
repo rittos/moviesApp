@@ -39,7 +39,7 @@ const SiteHeader = () => {
     { label: "Popular People", path: "/people/popular" },
     { label: "Search Movies", path: "/movies/searchmovie" },
     { label: "Fantasy Movie", path: "/fantasymovie" },
-    { label: "Login", path: "/login" },
+    // { label: "Login", path: "/login" },
   ];
   // if(authcontext != null){
   //   if(authcontext.isAuthenticated){
@@ -54,6 +54,35 @@ const SiteHeader = () => {
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
+  const handlelogout= (e) =>{
+    console.log("logout");
+    if(authcontext != null){
+    authcontext.signout();
+    }
+  }
+  const handlelogin= (e) =>{
+    history.push('/login');
+  }
+
+  const renderLogoutButton = () => {
+    if(authcontext != null)
+    {
+      if(authcontext.isAuthenticated)
+      {
+        return  <Button key={"logout"} color="inherit" onClick={() => handlelogout()}>{"logout"}</Button>
+      }
+    }
+  }
+  const renderLoginButton = () => {
+    if(authcontext != null)
+    {
+      if(!authcontext.isAuthenticated)
+      {
+        return  <Button key={"login"} color="inherit" onClick={() => handlelogin()}>{"login"}</Button>
+      }
+    }
+  }
 
   return ( 
     <>
@@ -113,10 +142,15 @@ const SiteHeader = () => {
                   {opt.label}
                 </Button>
               ))}
+              {renderLoginButton()}
+              {renderLogoutButton()}
+             
+
             </>
           )}
         </Toolbar>
       </AppBar>
+      
     </>
   );
 };
