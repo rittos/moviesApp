@@ -2,19 +2,32 @@ import React, { useContext } from "react";
 import { MoviesContext } from "../../contexts/moviesContext";
 import IconButton from "@material-ui/core/IconButton";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import { AuthContext } from "../../contexts/authContext";
 
 const AddToFavouritesIcon = ({ movie }) => {
   const context = useContext(MoviesContext);
+  const authcontext = useContext(AuthContext);
 
   const handleAddToFavourites = (e) => {
     e.preventDefault();
     context.addToFavourites(movie);
   };
-  return (
-    <IconButton aria-label="add to favorites" onClick={handleAddToFavourites}>
-      <FavoriteIcon color="primary" fontSize="large" />
-    </IconButton>
-  );
+  if(authcontext.isAuthenticated)
+  {
+    return (
+      
+      <IconButton aria-label="add to favorites" onClick={handleAddToFavourites}>
+        <FavoriteIcon color="primary" fontSize="large" />
+      </IconButton>
+    );
+  }
+  else{
+    return(
+      <IconButton aria-label="add to favorites" onClick={handleAddToFavourites}>
+      {/* <FavoriteIcon color="primary" fontSize="large" /> */}
+      </IconButton>
+    )
+  }
 };
 
 export default AddToFavouritesIcon;

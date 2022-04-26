@@ -18,12 +18,17 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import Button from "@material-ui/core/Button";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   card: { maxWidth: 155, margin:10 },
   media: { height: 100 },
   horizontal: {float:"left"},
-  stack: {margin:25}
-});
+  stack: {margin:25},
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 220,
+    backgroundColor: "rgb(255, 255, 255)",
+  },
+}));
 
 export default function FantasyMovieGenerator({ movie }) {
   const classes = useStyles();
@@ -63,10 +68,10 @@ export default function FantasyMovieGenerator({ movie }) {
     <Grid container spacing={4}>
           <Grid item xs={6}>
             <div className={classes.stack}>
-              <TextField id="outlined-basic" label="Name" variant="outlined" /></div>
+              <TextField id="outlined-basic" required  label="Name" variant="outlined" /></div>
             <div className={classes.stack}>
               <TextField 
-                label="Runtime (Hours)" name="runtime" 
+                label="Runtime (Hours)" required  name="runtime" 
                 inputProps={{ maxLength: 4}} value={values1} type="text" 
                 onChange={handleRuntimeChange} className={classes.textfield} /> 
                 </div>
@@ -104,10 +109,11 @@ export default function FantasyMovieGenerator({ movie }) {
             </FormControl>
           </div>
             <div className={classes.stack}>
-                <TextField id="outlined-basic" label="Overview" variant="outlined" /></div>
+                <TextField id="outlined-basic" required  label="Overview" variant="outlined" /></div>
             <div className={classes.stack}>
               <TextField
                 id="date"
+                required 
                 label="Release Date"
                 type="date"
                 defaultValue="2021-01-01"

@@ -1,17 +1,35 @@
-import React, { useState } from "react";
+import React, { useState , useContext} from "react";
+import { addMovietoFavourites, getFavouriteMovies } from "../api/movie-api";
+import { AuthContext } from "../contexts/authContext";
 
 export const MoviesContext = React.createContext(null);
 
 const MoviesContextProvider = (props) => {
   const [myReviews, setMyReviews] = useState( {} ) 
   const [favourites, setFavourites] = useState([]);
+  const [authenticated, setAuthenticated] = useState(false);
+  const authcontext = useContext(AuthContext);
 
-  const addToFavourites = (movie) => {
+
+  const loadAllFavourites = async (movie) => {
+    const resultfav = await getFavouriteMovies(authcontext.userid);
+    const myfavourites =  resultfav.favourites.filter(t=>t != null);
+    setFavourites(myfavourites)
+  }
+  loadAllFavourites();
+  const addToFavourites = async (movie) => {
     let updatedFavourites = [...favourites];
-    if (!favourites.includes(movie.id)) {
+    updatedFavourites = updatedFavourites.filter(t=>t != null)
+    if (!updatedFavourites.includes(movie.id)) {
       updatedFavourites.push(movie.id);
+      const result = await addMovietoFavourites(authcontext.userid, movie.id);
     }
     setFavourites(updatedFavourites);
+
+
+    // if (result.token) {
+
+    // }
   };
 
   // We will use this function in a later section
@@ -30,6 +48,7 @@ const MoviesContextProvider = (props) => {
         addToFavourites,
         removeFromFavourites,
         addReview,
+        setAuthenticated
       }}
     >
       {props.children}

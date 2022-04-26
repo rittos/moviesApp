@@ -54,15 +54,16 @@ const style = {
         >
           <Box sx={style}>
             <Typography id="modal-modal-title" variant="h6" component="h2">
-              Text in a modal
+              Popular actors
             </Typography>
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+              Add your favourite actors to create your fantasy movie!
               <DialogPeopleList peoples={data.results} 
               addbtnaction ={prop.addbtnaction} 
               action={(people) => {
               return <div people={people} />
-              }}></DialogPeopleList>
+              }}>
+              </DialogPeopleList>
             </Typography>
           </Box>
         </Modal>
