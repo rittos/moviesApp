@@ -17,6 +17,7 @@ import FantasyMoviePage from "./pages/fantasyMoviewPage";
 import SearchMoviesPage from "./pages/searchMoviesPage";
 import SignUpPage from "./pages/signUpPage";
 import AuthContextProvider from "./contexts/authContext";
+import LoginPage from "./pages/loginPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -36,6 +37,7 @@ const App = () => {
      <AuthContextProvider>
      <MoviesContextProvider>
       <Switch>
+        <Route path="/login" component={LoginPage} />
         <Route path="/signup" component={SignUpPage} />
         <Route exact path="/movies/searchmovie" component={SearchMoviesPage} />
         <Route exact path="/fantasymovie" component={FantasyMoviePage} />

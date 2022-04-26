@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   }));
   
 const SignUpPage = props => {
-  const context = useContext(AuthContext)
+  const context = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordAgain, setPasswordAgain] = useState("");
