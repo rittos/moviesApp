@@ -15,6 +15,8 @@ import AddMovieReviewPage from './pages/addMovieReviewPage'
 import peoplePage from "./pages/peopleDetailsPage";
 import FantasyMoviePage from "./pages/fantasyMoviewPage";
 import SearchMoviesPage from "./pages/searchMoviesPage";
+import SignUpPage from "./pages/signUpPage";
+import AuthContextProvider from "./contexts/authContext";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -31,8 +33,10 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
     <BrowserRouter>
      <SiteHeader />
+     <AuthContextProvider>
      <MoviesContextProvider>
       <Switch>
+        <Route path="/signup" component={SignUpPage} />
         <Route exact path="/movies/searchmovie" component={SearchMoviesPage} />
         <Route exact path="/fantasymovie" component={FantasyMoviePage} />
         <Route exact path="/people/popular" component={PopularPeoplesPage} />
@@ -46,6 +50,7 @@ const App = () => {
         <Redirect from="*" to="/" />
       </Switch>
       </MoviesContextProvider>
+      </AuthContextProvider>
     </BrowserRouter>
     <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
