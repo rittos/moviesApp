@@ -9,8 +9,7 @@ const MoviesContextProvider = (props) => {
   const [favourites, setFavourites] = useState([]);
   const [authenticated, setAuthenticated] = useState(false);
   const authcontext = useContext(AuthContext);
-
-
+  
   const loadAllFavourites = async (movie) => {
     const resultfav = await getFavouriteMovies(authcontext.userid);
     const myfavourites =  resultfav.favourites.filter(t=>t != null);

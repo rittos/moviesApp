@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import PeopleSimpleDialog from "../peopleSimpleDialog"
 import DialogPeopleList from "../dialogPeopleList";
@@ -17,6 +17,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import Button from "@material-ui/core/Button";
+import { addFantasyMovie } from "../../api/movie-api";
+import { AuthContext } from "../../contexts/authContext";
 
 const useStyles = makeStyles((theme) => ({
   card: { maxWidth: 155, margin:10 },
@@ -34,6 +36,14 @@ export default function FantasyMovieGenerator({ movie }) {
   const classes = useStyles();
   const [selectedpeoples, setSelectedPeople] = useState([]);
   const { data, error, isLoading, isError } = useQuery("genres", getGenres);
+  const [genreId, setGenreId] = useState("0");
+  const [runtime, setRuntime] = useState("");
+  const [releaseDt, setReleaseDate] = useState("");
+  const [name, setMovieName] = useState("");
+  const [overview, setOverview] = useState("");
+  const [actorIds, setActorIds] = useState([]);
+  const authcontext = useContext(AuthContext);
+  
   var genres = [];
     if(data !== undefined){
       genres = data.genres;
@@ -43,6 +53,12 @@ export default function FantasyMovieGenerator({ movie }) {
   }
   const handleAddActor = (actor) => {
     // peoples[0] = actor;
+    let updatedactorsIds = [...actorIds];
+    if (!updatedactorsIds.includes(actor.id)) {
+      updatedactorsIds.push(actor.id);
+    }
+    setActorIds(updatedactorsIds);
+
     var peoples = [];
     peoples.push(actor);
     peoples = peoples.concat(selectedpeoples);
@@ -50,29 +66,42 @@ export default function FantasyMovieGenerator({ movie }) {
     console.log(peoples.length);
   };
 
-  // const handleReleaseDtChange = (newValue: Date | null) => {
-  //   console.log(newValue);
-  // };
-  const [values1, setValues1] = useState("");
+  const handleNameChange = (e) => {
+    setMovieName(e.target.value)
+  }
+
   const handleRuntimeChange = (e) => {
      const re = /^\d+(\.\d{0,1})?$/ ;// /^[0-9\b]+$/;
     if (e.target.value === '' || re.test(e.target.value)) {
-       setValues1(e.target.value)
+      setRuntime(e.target.value)
     } };       
 
   const handleGenreChange = (e) => {
     //handleUserImput(e, "genre", e.target.value);
+    setGenreId(e.target.value);
   };
+
+  const handleOverViewChange = (e) => {
+    setOverview(e.target.value);
+  }
+
+  const handleDateChange = (e) => {
+    setReleaseDate(e.target.value);
+  }
+
+  const addFantasyMovieHandler =  async () => {
+    const result = await addFantasyMovie(authcontext.userid, name, genreId, runtime, overview, releaseDt,actorIds);
+  }
   return (
     <>
     <Grid container spacing={4}>
           <Grid item xs={6}>
             <div className={classes.stack}>
-              <TextField id="outlined-basic" required  label="Name" variant="outlined" /></div>
+              <TextField id="outlined-basic" required  label="Name" onChange={handleNameChange} variant="outlined" /></div>
             <div className={classes.stack}>
               <TextField 
                 label="Runtime (Hours)" required  name="runtime" 
-                inputProps={{ maxLength: 4}} value={values1} type="text" 
+                inputProps={{ maxLength: 4}} value={runtime} type="text" 
                 onChange={handleRuntimeChange} className={classes.textfield} /> 
                 </div>
               <div className={classes.stack}>
@@ -95,7 +124,7 @@ export default function FantasyMovieGenerator({ movie }) {
               <Select
                 labelId="genre-label"
                 id="genre-select"
-                value="0"
+                value={genreId}
                 onChange={handleGenreChange}
               >
                 {genres.map((genre) => {
@@ -109,9 +138,9 @@ export default function FantasyMovieGenerator({ movie }) {
             </FormControl>
           </div>
             <div className={classes.stack}>
-                <TextField id="outlined-basic" required  label="Overview" variant="outlined" /></div>
+                <TextField id="outlined-basic" onChange={handleOverViewChange} required  label="Overview" variant="outlined" /></div>
             <div className={classes.stack}>
-              <TextField
+              <TextField onChange={handleDateChange}
                 id="date"
                 required 
                 label="Release Date"
@@ -178,7 +207,7 @@ export default function FantasyMovieGenerator({ movie }) {
               }
 
           <div >
-            <Button variant="contained" style={{
+            <Button onClick={addFantasyMovieHandler} variant="contained" style={{
               borderRadius: 35,
               backgroundColor: "#d53855",
               padding: "10px 26px",
