@@ -89,6 +89,22 @@ export default function FantasyMovieDetails({ movie }) {
                 className={classes.textfield} 
                 InputProps={{startAdornment: ( <InputAdornment position="start">{/* <AccountCircle /> */}</InputAdornment>),}}/>
                 </div>
+                <div className={classes.stack}>
+                  <TextField
+                    id="date"
+                    required 
+                    label="Release Date"
+                    variant="filled"
+                    aria-readonly={true}
+                    type="date"
+                    defaultValue="2021-01-01"
+                    value={releaseDt}
+                    sx={{ width: 220 }}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
+              </div>
           </Grid>
           <Grid item xs={6}>
           <div className={classes.stack}>
@@ -116,22 +132,6 @@ export default function FantasyMovieDetails({ movie }) {
                 InputProps={{startAdornment: ( <InputAdornment position="start">{/* <AccountCircle /> */}</InputAdornment>),}}/>
                 
                 </div>
-            <div className={classes.stack}>
-              <TextField
-                id="date"
-                required 
-                label="Release Date"
-                variant="filled"
-                aria-readonly={true}
-                type="date"
-                defaultValue="2021-01-01"
-                value={releaseDt}
-                sx={{ width: 220 }}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-              />
-              </div>
           </Grid>
       </Grid>
       <div className={classes.stack}>

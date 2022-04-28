@@ -25,7 +25,8 @@ const useStyles = makeStyles((theme) => ({
   media: { height: 100 },
   horizontal: {float:"left"},
   stack: {margin:25},
-  container:{margin:100},
+  searchresult:{marginLeft:30,marginTop:20, marginBottom:20},
+  container:{margin:"auto",marginTop:40 ,backgroundColor:"#e7e7ff", padding:50,borderRadius:30,paddingLeft:300},
 
   formControl: {
     margin: theme.spacing(1),
@@ -155,13 +156,14 @@ const SearchMoviesPage = (props) => {
             <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
               <Grid item xs={6}>
   
-                <FormControl className={classes.formControl}>
+                <FormControl className={classes.formControl}  style={{ backgroundColor: "#e7e7ff"}}>
                 <InputLabel id="genre-label">Genre</InputLabel>
                 <Select
                   labelId="genre-label"
                   id="genre-select"
                   value={selectedGenres}
                   onChange={handleGenreChange}
+                  
                 >
                   {genres.map((genre) => {
                     return (
@@ -175,13 +177,14 @@ const SearchMoviesPage = (props) => {
        
               </Grid>
               <Grid item xs={6}>
-              <FormControl className={classes.formControl}>
-              <InputLabel id="language-label">Language</InputLabel>
+              <FormControl className={classes.formControl}  style={{ backgroundColor: "#e7e7ff"}}>
+              <InputLabel id="language-label" >Language</InputLabel>
               <Select
                 labelId="language-label"
                 id="language-select"
                 value={selectedLanguage}
                 onChange={handleLanguageChange}
+               
               >
                 {languages.map((language) => {
                   return (
@@ -258,38 +261,36 @@ const SearchMoviesPage = (props) => {
                      </div>
               </Grid>
               <Grid item xs={6}>6</Grid>
+              <Grid item xs={12}>    
+                  <Button variant="contained" onClick={searchButtonClick} style={{
+                    borderRadius: 35,
+                    backgroundColor: "#d53855",
+                    padding: "10px 20px",
+                    fontSize: "14px",
+                    color: "white",
+                     }}>Search</Button>
+               </Grid>
             </Grid>
       </div>
-
-      <div >
-            <Button variant="contained" onClick={searchButtonClick} style={{
-              borderRadius: 35,
-              backgroundColor: "#d53855",
-              padding: "10px 26px",
-              fontSize: "14px",
-              color: "white",
-              margin:110
-          }}>Search</Button>
-      </div>
-
-
-      <Grid container >
-            <Grid item xs={12}>
-              {/* <Button variant="outlined"  style={{marginTop: 20}} color="primary">
-                Search Results
-              </Button> */}
-            </Grid>
-            <Grid item container spacing={5}>
-            <MovieList 
-            action={(movie) => {
-              return <div movie={movie} />
-              }}
-            movies={movies} />
-            </Grid>
+      <div className={classes.searchresult}> 
+          <Grid container >
+                <Grid item xs={12}>
+                  {/* <Button variant="outlined"  style={{marginTop: 20}} color="primary">
+                    Search Results
+                  </Button> */}
+                </Grid>
+                <Grid item container spacing={5}>
+                <MovieList 
+                action={(movie) => {
+                  return <div movie={movie} />
+                  }}
+                movies={movies} />
+                </Grid>
           </Grid>
-      <button style={{backgroundColor: "#646496", color: "white", padding:5, borderRadius: 5, marginTop: 5}} disabled={page == 1? true:false} onClick={previousClickHandler}>Previous</button>
-      <span style={{ backgroundColor: "#ff4557", margin:3,padding:5,borderRadius:3, color: "white"}}> {page} </span>
-      <button style={{backgroundColor: "#646496", color: "white", padding:5, borderRadius: 5, marginTop: 5}} onClick= {nextClickHandler}>Next</button>
+          <button style={{backgroundColor: "#646496", color: "white", padding:5, borderRadius: 5, marginTop: 5}} disabled={page == 1? true:false} onClick={previousClickHandler}>Previous</button>
+          <span style={{ backgroundColor: "#ff4557", margin:3,padding:5,borderRadius:3, color: "white"}}> {page} </span>
+          <button style={{backgroundColor: "#646496", color: "white", padding:5, borderRadius: 5, marginTop: 5}} onClick= {nextClickHandler}>Next</button>
+      </div>
   </>
   );
 };

@@ -13,7 +13,7 @@ import Avatar from "@material-ui/core/Avatar";
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 
 const useStyles = makeStyles({
-  card: { maxWidth: 345 },
+  card: { maxWidth: 400 },
   media: { height: 350 },
   avatar: {
     backgroundColor: "rgb(255, 0, 0)",
@@ -50,13 +50,13 @@ export default function FantasyMovieCard({ movie }) {
       <CardContent>
         <Grid container>
           <Grid item xs={6}>
-            <Typography variant="h6" component="p">
+            <Typography variant="caption" component="p">
               <CalendarIcon fontSize="small" />
-              {movie.releaseDt}
+              {"Release Date:  "}  {movie.releaseDt}
             </Typography>
           </Grid>
           <Grid item xs={6}>
-            <Typography variant="h6" component="p">
+            <Typography variant="caption" component="p">
               <AccessTimeIcon fontSize="small" />
               {"Duration:  "} {movie.runtime}{" "}
             </Typography>
@@ -68,7 +68,7 @@ export default function FantasyMovieCard({ movie }) {
         pathname: `/fantasymoviedetails/${movie.userId}`,
       }}
     >
-      View / Update details
+      View details
     </Link>
     </Card>
   );

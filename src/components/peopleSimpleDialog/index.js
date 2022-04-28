@@ -45,7 +45,7 @@ const style = {
 
     return (
       <div>
-        <Button onClick={handleOpen}>{prop.btnname}</Button>
+        <Button  style={{ backgroundColor: "grey", color:"white",borderRadius:30,paddingLeft:10, paddingRight:10}} onClick={handleOpen}>{prop.btnname}</Button>
         <Modal
           open={open}
           onClose={handleClose}
