@@ -14,7 +14,8 @@
     "react-query": "^3.13.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "5.0.0",
-    "react-scroll": "^1.8.1"
+    "react-scroll": "^1.8.1",
+    "react-toastify": "^8.2.0"
   },
   "scripts": {
     "storybook": "start-storybook -p 6006 -s public",
@@ -49,5 +50,5 @@
     "@storybook/preset-create-react-app": "^3.1.7",
     "@storybook/react": "^6.2.9"
   },
-  "proxy":"http://localhost:8080"
+  "proxy": "http://localhost:8080"
 }

@@ -20,6 +20,7 @@ import AuthContextProvider from "./contexts/authContext";
 import LoginPage from "./pages/loginPage";
 import PublicRoute from './components/publicRoute';
 import PrivateRoute from './components/privateRoute';
+import FantasyMovieDetails from "./pages/fantasyMovieDetailsPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -42,7 +43,8 @@ const App = () => {
         <PublicRoute restricted={true} path="/login" component={LoginPage} />
         <Route path="/signup" component={SignUpPage} />
         <Route exact path="/movies/searchmovie" component={SearchMoviesPage} />
-        <Route exact path="/fantasymovie" component={FantasyMoviePage} />
+        <PrivateRoute exact path="/fantasymovie" component={FantasyMoviePage} />
+        <PrivateRoute exact path="/fantasymoviedetails/:id" component={FantasyMovieDetails} />
         <Route exact path="/people/popular" component={PopularPeoplesPage} />
         <Route path="/people/:id" component={peoplePage} />
         <Route exact path="/reviews/form" component={AddMovieReviewPage} />
@@ -56,7 +58,7 @@ const App = () => {
       </MoviesContextProvider>
       </AuthContextProvider>
     </BrowserRouter>
-    <ReactQueryDevtools initialIsOpen={false} />
+    {/* <ReactQueryDevtools initialIsOpen={false} /> */}
     </QueryClientProvider>
   );
 };

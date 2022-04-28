@@ -33,12 +33,32 @@ export const getFavouriteMovies = (userid) => {
         headers: {
             'Content-Type': 'application/json'
         },
-        method: 'post',
+        method: 'get',
     }).then(res => res.json())
 };
 
 export const getAccountByEmail = (email) => {
     return fetch(`/api/accounts/email/${email}`, {
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        method: 'get',
+    }).then(res => res.json())
+};
+
+export const addFantasyMovie = (userId, name, genreId, runtime, overview, releaseDt, actorIds) => {
+    return fetch(`/api/movies//${userId}/fantasymovie`, {
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        method: 'post',
+        body: JSON.stringify({ userId: userId, name: name, genreId: genreId, runtime: runtime, overview: overview, releaseDt: releaseDt,actorIds: actorIds })
+    }).then(res => res.json())
+};
+
+
+export const getFantasyMovie = (userid) => {
+    return fetch(`/api/movies/${userid}/fantasymovie`, {
         headers: {
             'Content-Type': 'application/json'
         },

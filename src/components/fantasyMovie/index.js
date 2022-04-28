@@ -1,23 +1,20 @@
-import React, { useContext  } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardHeader from "@material-ui/core/CardHeader";
-import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import CalendarIcon from "@material-ui/icons/CalendarTodayTwoTone";
-import StarRateIcon from "@material-ui/icons/StarRate";
 import Grid from "@material-ui/core/Grid";
 import Avatar from "@material-ui/core/Avatar";
-import { MoviesContext } from "../../contexts/moviesContext";
+import AccessTimeIcon from '@material-ui/icons/AccessTime';
 
 const useStyles = makeStyles({
-  card: { maxWidth: 545 },
-  media: { height: 500 },
+  card: { maxWidth: 400 },
+  media: { height: 350 },
   avatar: {
     backgroundColor: "rgb(255, 0, 0)",
   },
@@ -25,14 +22,6 @@ const useStyles = makeStyles({
 
 export default function FantasyMovieCard({ movie }) {
   const classes = useStyles();
-//   const { favourites } = useContext(MoviesContext);
-
-//   if (favourites.find((id) => id === movie.id)) {
-//     movie.favourite = true;
-//   } else {
-//     movie.favourite = false
-//   }
-
   return (
     <Card className={classes.card}>
       <CardHeader
@@ -46,7 +35,7 @@ export default function FantasyMovieCard({ movie }) {
       }
       title={
         <Typography variant="h5" component="p">
-          {movie.title}{" "}
+          {movie.name}{" "}
         </Typography>
       }
     />
@@ -61,27 +50,26 @@ export default function FantasyMovieCard({ movie }) {
       <CardContent>
         <Grid container>
           <Grid item xs={6}>
-            <Typography variant="h6" component="p">
+            <Typography variant="caption" component="p">
               <CalendarIcon fontSize="small" />
-              {movie.release_date}
+              {"Release Date:  "}  {movie.releaseDt}
             </Typography>
           </Grid>
           <Grid item xs={6}>
-            <Typography variant="h6" component="p">
-              <StarRateIcon fontSize="small" />
-              {"  "} {movie.vote_average}{" "}
+            <Typography variant="caption" component="p">
+              <AccessTimeIcon fontSize="small" />
+              {"Duration:  "} {movie.runtime}{" "}
             </Typography>
           </Grid>
         </Grid>
       </CardContent>
-      {/* <CardActions disableSpacing>
-      {action(movie)}
-        <Link to={`/movies/${movie.id}`}>
-        <Button variant="outlined" size="medium" color="primary">
-          More Info ...
-        </Button>
-        </Link>
-      </CardActions> */}
+      <Link
+      to={{
+        pathname: `/fantasymoviedetails/${movie.userId}`,
+      }}
+    >
+      View details
+    </Link>
     </Card>
   );
 }

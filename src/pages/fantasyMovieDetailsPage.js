@@ -1,31 +1,32 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import PeopleSimpleDialog from "../peopleSimpleDialog"
+import PeopleSimpleDialog from "../components/peopleSimpleDialog"
 import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardHeader from "@material-ui/core/CardHeader";
 import Grid from "@material-ui/core/Grid";
+import CloseIcon from '@material-ui/icons/Close';
+import TextField from '@material-ui/core/TextField';
 import { useQuery } from "react-query";
-import { getGenres } from "../../api/tmdb-api";
+import { getGenres } from "../api/tmdb-api";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import Button from "@material-ui/core/Button";
-import { addFantasyMovie } from "../../api/movie-api";
-import { AuthContext } from "../../contexts/authContext";
-import TextField from '@material-ui/core/TextField';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { Redirect } from 'react-router-dom';
+import { AuthContext } from "../contexts/authContext";
+import { getFantasyMovie} from "../api/movie-api";
+import InputAdornment from '@material-ui/core/InputAdornment';
+import { getPeopleById } from '../api/tmdb-api'
 
 const useStyles = makeStyles((theme) => ({
-  card: { maxWidth: 155,minHeight:350, margin:10 },
-  media: { height: 100 },
+  card: { maxWidth: 380,minHeight:300, margin:10 },
+  media: { height: 300 },
   horizontal: {float:"left"},
-  stack: {marginLeft:150,marginBottom:20,marginTop:20},
+  stack: {marginLeft:150,marginBottom:20},
+  main:{marginTop:100},
   formControl: {
     margin: theme.spacing(1),
     minWidth: 220,
@@ -33,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function FantasyMovieGenerator({ movie }) {
+export default function FantasyMovieDetails({ movie }) {
   const classes = useStyles();
   const [selectedpeoples, setSelectedPeople] = useState([]);
   const { data, error, isLoading, isError } = useQuery("genres", getGenres);
@@ -44,81 +45,67 @@ export default function FantasyMovieGenerator({ movie }) {
   const [overview, setOverview] = useState("");
   const [actorIds, setActorIds] = useState([]);
   const authcontext = useContext(AuthContext);
-  
-  var genres = [];
-    if(data !== undefined){
-      genres = data.genres;
-    if (genres[0].name !== "All") {
-      genres.unshift({ id: "0", name: "All" });
+  const [fantasymovie, setfantasymovie] = useState([]);
+  const genres = data.genres;
+  if (genres[0].name !== "All") {
+    genres.unshift({ id: "0", name: "All" });
+  }
+    useEffect(() => {
+      getFantasyMovie(authcontext.userid).then((resp) => {
+        setfantasymovie(resp);
+        setGenreId(resp.genreId);
+        setReleaseDate(resp.releaseDt);
+        var peoples = [];
+        resp.actorIds.forEach(personid => {
+          populatePersons(personid, peoples);
+        });
+        
+      });
+    }, [authcontext.userid]);
+
+
+    const populatePersons = async (personid, peoples) =>{
+      
+      await getPeopleById(personid).then((resp)=>{
+        let updatedpersonslist = [...peoples]
+        peoples.push(resp);
+        updatedpersonslist.push(resp);
+        // peoples.push(updatedpersonslist[0])
+        setSelectedPeople(updatedpersonslist);
+      });   
     }
-  }
-  const handleAddActor = (actor) => {
-    // peoples[0] = actor;
-    let updatedactorsIds = [...actorIds];
-    if (!updatedactorsIds.includes(actor.id)) {
-      updatedactorsIds.push(actor.id);
-    }
-    setActorIds(updatedactorsIds);
 
-    var peoples = [];
-    peoples.push(actor);
-    peoples = peoples.concat(selectedpeoples);
-    setSelectedPeople(peoples);
-    console.log(peoples.length);
-  };
-
-  const handleNameChange = (e) => {
-    setMovieName(e.target.value)
-  }
-
-  const handleRuntimeChange = (e) => {
-     const re = /^\d+(\.\d{0,1})?$/ ;// /^[0-9\b]+$/;
-    if (e.target.value === '' || re.test(e.target.value)) {
-      setRuntime(e.target.value)
-    } };       
-
-  const handleGenreChange = (e) => {
-    //handleUserImput(e, "genre", e.target.value);
-    setGenreId(e.target.value);
-  };
-
-  const handleOverViewChange = (e) => {
-    setOverview(e.target.value);
-  }
-
-  const handleDateChange = (e) => {
-    setReleaseDate(e.target.value);
-  }
-
-  const addFantasyMovieHandler =  async () => {
-    const result = await addFantasyMovie(authcontext.userid, name, genreId, runtime, overview, releaseDt,actorIds);
-    toast("Successfully added your fantasy movie!");
-    return <Redirect to="/fantasymovie" />;
-  }
   return (
     <>
+    <div className={classes.main}>
     <Grid container spacing={4}>
           <Grid item xs={6}>
             <div className={classes.stack}>
-              <TextField id="outlined-basic" required  label="Name" onChange={handleNameChange} variant="outlined" /></div>
+              <TextField id="outlined-basic" value={fantasymovie.name} required  label="Name" variant="filled" 
+              InputProps={{startAdornment: ( <InputAdornment position="start">{/* <AccountCircle /> */}</InputAdornment>),}}/>
+          </div>
             <div className={classes.stack}>
               <TextField 
-                label="Runtime (Hours)" required  name="runtime" 
-                inputProps={{ maxLength: 4}} value={runtime} type="text" 
-                onChange={handleRuntimeChange} className={classes.textfield} /> 
+                label="Runtime (Hours)" required  name="runtime"   variant="filled"
+                inputProps={{ maxLength: 4}} value={fantasymovie.runtime} type="text" 
+                className={classes.textfield} 
+                InputProps={{startAdornment: ( <InputAdornment position="start">{/* <AccountCircle /> */}</InputAdornment>),}}/>
                 </div>
                 <div className={classes.stack}>
-              <TextField onChange={handleDateChange}
-                id="date"
-                required 
-                label="Release Date"
-                type="date"
-                defaultValue="2021-01-01"
-                sx={{ width: 220 }}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-              />
+                  <TextField
+                    id="date"
+                    required 
+                    label="Release Date"
+                    variant="filled"
+                    aria-readonly={true}
+                    type="date"
+                    defaultValue="2021-01-01"
+                    value={releaseDt}
+                    sx={{ width: 220 }}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
               </div>
           </Grid>
           <Grid item xs={6}>
@@ -129,11 +116,12 @@ export default function FantasyMovieGenerator({ movie }) {
                 labelId="genre-label"
                 id="genre-select"
                 value={genreId}
-                onChange={handleGenreChange}
+                readOnly={true}
+                variant="filled"
               >
                 {genres.map((genre) => {
                   return (
-                    <MenuItem key={genre.id} value={genre.id}>
+                    <MenuItem  key={genre.id} value={genre.id}>
                       {genre.name}
                     </MenuItem>
                   );
@@ -142,19 +130,12 @@ export default function FantasyMovieGenerator({ movie }) {
             </FormControl>
           </div>
             <div className={classes.stack}>
-                <TextField id="outlined-basic" onChange={handleOverViewChange} required  label="Overview" variant="outlined" /></div>
-            
+                <TextField id="outlined-basic" value={fantasymovie.overview} required  label="Overview" variant="filled"
+                InputProps={{startAdornment: ( <InputAdornment position="start">{/* <AccountCircle /> */}</InputAdornment>),}}/>
+                
+                </div>
           </Grid>
       </Grid>
-      <div className={classes.stack}>
-      <PeopleSimpleDialog btnname="Select Actors" addbtnaction={handleAddActor} />
-      </div>
-      {/* <PeopleSimpleDialog btnname="Select actress"   addbtnaction={handleAddActor} /> */}
-      <div className={classes.stack}>
-      <Typography variant="h6" component="p">
-        {selectedpeoples.length > 0 ? "": "No actors selected!"}
-      </Typography>
-      </div>
       <div className={classes.stack}>
       {selectedpeoples.map((people) => {
               return (
@@ -198,9 +179,8 @@ export default function FantasyMovieGenerator({ movie }) {
                 }
             )
               }
-              </div>
-
-          <div className={classes.stack} >
+          </div>
+          {/* <div >
           <Grid container spacing={4}>
           <Grid item xs={12}>
             <Button onClick={addFantasyMovieHandler} variant="contained" style={{
@@ -209,12 +189,11 @@ export default function FantasyMovieGenerator({ movie }) {
               padding: "10px 26px",
               fontSize: "14px",
               color: "white"
-          }}>Add fantasy movie</Button>
-          <ToastContainer />
+          }}>Delete my fantasy movie</Button>
           </Grid>
           </Grid>
-          </div>
-             
+          </div> */}
+     </div>     
     </>
   );
 }

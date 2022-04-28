@@ -45,7 +45,7 @@ const style = {
 
     return (
       <div>
-        <Button onClick={handleOpen}>{prop.btnname}</Button>
+        <Button  style={{ backgroundColor: "grey", color:"white",borderRadius:30,paddingLeft:10, paddingRight:10}} onClick={handleOpen}>{prop.btnname}</Button>
         <Modal
           open={open}
           onClose={handleClose}
@@ -57,7 +57,7 @@ const style = {
               Popular actors
             </Typography>
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              Add your favourite actors to create your fantasy movie!
+              Add popular people!
               <DialogPeopleList peoples={data.results} 
               addbtnaction ={prop.addbtnaction} 
               action={(people) => {
