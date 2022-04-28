@@ -12,13 +12,11 @@ const MoviesContextProvider = (props) => {
   
   const loadAllFavourites = async (movie) => {
     const resultfav = await getFavouriteMovies(authcontext.userid);
-    const myfavourites =  resultfav.favourites.filter(t=>t != null);
-    setFavourites(myfavourites)
+    setFavourites(resultfav)
   }
   loadAllFavourites();
   const addToFavourites = async (movie) => {
     let updatedFavourites = [...favourites];
-    updatedFavourites = updatedFavourites.filter(t=>t != null)
     if (!updatedFavourites.includes(movie.id)) {
       updatedFavourites.push(movie.id);
       const result = await addMovietoFavourites(authcontext.userid, movie.id);

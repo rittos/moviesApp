@@ -163,6 +163,7 @@ export default function FantasyMovieGenerator({ movie }) {
         {selectedpeoples.length > 0 ? "": "No actors selected!"}
       </Typography>
       </div>
+      <div className={classes.stack}>
       {selectedpeoples.map((people) => {
               return (
                 <div className={classes.horizontal}>
@@ -205,8 +206,9 @@ export default function FantasyMovieGenerator({ movie }) {
                 }
             )
               }
+              </div>
 
-          <div >
+          <div className={classes.stack} >
           <Grid container spacing={4}>
           <Grid item xs={12}>
             <Button onClick={addFantasyMovieHandler} variant="contained" style={{
