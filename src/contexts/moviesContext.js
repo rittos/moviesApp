@@ -1,4 +1,4 @@
-import React, { useState , useContext} from "react";
+import React, { useState , useContext, useEffect} from "react";
 import { addMovietoFavourites, getFavouriteMovies } from "../api/movie-api";
 import { AuthContext } from "../contexts/authContext";
 
@@ -10,11 +10,13 @@ const MoviesContextProvider = (props) => {
   const [authenticated, setAuthenticated] = useState(false);
   const authcontext = useContext(AuthContext);
   
-  const loadAllFavourites = async (movie) => {
-    const resultfav = await getFavouriteMovies(authcontext.userid);
-    setFavourites(resultfav)
-  }
-  loadAllFavourites();
+  useEffect(() => {
+      getFavouriteMovies(authcontext.userid).then((resp) => {
+        setFavourites(resp);
+    });
+  }, []);
+
+  // loadAllFavourites();
   const addToFavourites = async (movie) => {
     let updatedFavourites = [...favourites];
     if (!updatedFavourites.includes(movie.id)) {

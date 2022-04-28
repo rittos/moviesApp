@@ -1,15 +1,12 @@
 import React, { useState, useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import PeopleSimpleDialog from "../peopleSimpleDialog"
-import DialogPeopleList from "../dialogPeopleList";
 import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardHeader from "@material-ui/core/CardHeader";
 import Grid from "@material-ui/core/Grid";
-import CloseIcon from '@material-ui/icons/Close';
-import TextField from '@material-ui/core/TextField';
 import { useQuery } from "react-query";
 import { getGenres } from "../../api/tmdb-api";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -19,6 +16,10 @@ import Select from "@material-ui/core/Select";
 import Button from "@material-ui/core/Button";
 import { addFantasyMovie } from "../../api/movie-api";
 import { AuthContext } from "../../contexts/authContext";
+import TextField from '@material-ui/core/TextField';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { Redirect } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   card: { maxWidth: 155, margin:10 },
@@ -91,6 +92,8 @@ export default function FantasyMovieGenerator({ movie }) {
 
   const addFantasyMovieHandler =  async () => {
     const result = await addFantasyMovie(authcontext.userid, name, genreId, runtime, overview, releaseDt,actorIds);
+    toast("Successfully added your fantasy movie!");
+    return <Redirect to="/fantasymovie" />;
   }
   return (
     <>
@@ -218,6 +221,7 @@ export default function FantasyMovieGenerator({ movie }) {
               fontSize: "14px",
               color: "white"
           }}>Add fantasy movie</Button>
+          <ToastContainer />
           </Grid>
           </Grid>
           </div>

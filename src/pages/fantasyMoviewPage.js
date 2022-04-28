@@ -14,26 +14,13 @@ const FantasyMoviePage = (props) => {
         setfantasymovie(resp);
       });
     }, [authcontext.userid]);
-
-    //  getFantasyMovie(authcontext.userid).then((resp) => {
-    //   console.log(resp);
-    //   movie = resp;
-    //  });
-
   return (
     <>
     <div>
     <PageTemplate
     title="Fantasy Movie"
     movie={fantasymovie}
-    // action={(people) => {
-    //   return <div people={people} />
-    // }}
   />
-
-      {/* <button style={{backgroundColor: "#646496", color: "white", padding:5, borderRadius: 5, marginTop: 5}} disabled={page == 1? true:false} onClick={previousClickHandler}>Previous</button>
-      <span style={{ backgroundColor: "#ff4557", margin:3,padding:5,borderRadius:3, color: "white"}}> {page} </span>
-      <button style={{backgroundColor: "#646496", color: "white", padding:5, borderRadius: 5, marginTop: 5}} onClick= {nextClickHandler}>Next</button> */}
     </div>
   </>
   );

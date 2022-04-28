@@ -1,8 +1,5 @@
 import React, {useEffect, useState} from "react";
-import PageTemplate from '../components/templateMovieListPage'
-import { getUpcomingMovies } from "../api/tmdb-api";
 import { useQuery } from "react-query";
-import AddToFavouritesIcon from '../components/cardIcons/addToFavourites'
 import { searchMovies, getGenres, getLanguages } from "../api/tmdb-api";
 import Spinner from "../components/spinner";
 import Grid from "@material-ui/core/Grid";
@@ -24,7 +21,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 const useStyles = makeStyles((theme) => ({
-  card: { maxWidth: 155, margin:10 },
+  card: { maxWidth: 155,minHeight:180, margin:10 },
   media: { height: 100 },
   horizontal: {float:"left"},
   stack: {margin:25},
@@ -290,7 +287,7 @@ const SearchMoviesPage = (props) => {
             movies={movies} />
             </Grid>
           </Grid>
-          <button style={{backgroundColor: "#646496", color: "white", padding:5, borderRadius: 5, marginTop: 5}} disabled={page == 1? true:false} onClick={previousClickHandler}>Previous</button>
+      <button style={{backgroundColor: "#646496", color: "white", padding:5, borderRadius: 5, marginTop: 5}} disabled={page == 1? true:false} onClick={previousClickHandler}>Previous</button>
       <span style={{ backgroundColor: "#ff4557", margin:3,padding:5,borderRadius:3, color: "white"}}> {page} </span>
       <button style={{backgroundColor: "#646496", color: "white", padding:5, borderRadius: 5, marginTop: 5}} onClick= {nextClickHandler}>Next</button>
   </>
