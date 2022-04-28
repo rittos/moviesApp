@@ -54,8 +54,8 @@ const SearchMoviesPage = (props) => {
 
   if(genres !== undefined){
   if(genres.length > 0){
-      if (genres[0].name !== "All") {
-        genres.unshift({ id: "0", name: "All" });
+      if (genres[0].name !== "Select a genre") {
+        genres.unshift({ id: "0", name: "Select a genre" });
         setSelectedGenres("0");
       }
     }
@@ -215,6 +215,7 @@ const SearchMoviesPage = (props) => {
               </FormControl>
               </Grid>
               <Grid item xs={6}>
+                <div className={classes.horizontal}>
                           {selectedpeoples.map((people) => {
                           return (
                             <div className={classes.horizontal}>
@@ -257,6 +258,7 @@ const SearchMoviesPage = (props) => {
                             }
                         )
                           }
+                     </div>
               </Grid>
               <Grid item xs={6}>6</Grid>
             </Grid>

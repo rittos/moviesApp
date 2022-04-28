@@ -4,7 +4,7 @@ import DialogPeopleCard from "../dialogPeopleCard";
 
 const DialogPeopleList = ( {peoples, action, addbtnaction}) => {
   let peopleCards = peoples.map((m) => (
-    <Grid key={m.id} item xs={12} sm={6} md={4} lg={3} xl={2}>
+    <Grid key={m.id} item xs={12} sm={12} md={12} lg={12} xl={12}>
       <DialogPeopleCard key={m.id} people={m} action={action} addbtnaction={addbtnaction} />
     </Grid>
   ));

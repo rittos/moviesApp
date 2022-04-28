@@ -57,7 +57,7 @@ const style = {
               Popular actors
             </Typography>
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              Add your favourite actors to create your fantasy movie!
+              Add popular people!
               <DialogPeopleList peoples={data.results} 
               addbtnaction ={prop.addbtnaction} 
               action={(people) => {
