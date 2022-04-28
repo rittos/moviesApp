@@ -8,12 +8,12 @@ import { getFantasyMovie} from "../api/movie-api";
 const FantasyMoviePage = (props) => {
   const authcontext = useContext(AuthContext);
   const [fantasymovie, setfantasymovie] = useState([]);
-  
+
   useEffect(() => {
     getFantasyMovie(authcontext.userid).then((resp) => {
       setfantasymovie(resp);
     });
-  }, []);
+  }, [authcontext.userid]);
   return (
     <>
     <div>

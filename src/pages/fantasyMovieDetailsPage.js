@@ -22,8 +22,8 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import { getPeopleById } from '../api/tmdb-api'
 
 const useStyles = makeStyles((theme) => ({
-  card: { maxWidth: 155, margin:10 },
-  media: { height: 100 },
+  card: { maxWidth: 380,minHeight:300, margin:10 },
+  media: { height: 300 },
   horizontal: {float:"left"},
   stack: {marginLeft:150,marginBottom:20},
   main:{marginTop:100},
@@ -53,23 +53,25 @@ export default function FantasyMovieDetails({ movie }) {
     useEffect(() => {
       getFantasyMovie(authcontext.userid).then((resp) => {
         setfantasymovie(resp);
-        setGenreId(fantasymovie.genreId);
-        setReleaseDate(fantasymovie.releaseDt);
+        setGenreId(resp.genreId);
+        setReleaseDate(resp.releaseDt);
         var peoples = [];
         resp.actorIds.forEach(personid => {
           populatePersons(personid, peoples);
         });
         
       });
-    }, [authcontext.userid,fantasymovie.genreId]);
+    }, [authcontext.userid]);
 
 
-    const populatePersons = (personid, peoples) =>{
-      let updatedpersonslist = [...selectedpeoples]
-      getPeopleById(personid).then((resp)=>{
+    const populatePersons = async (personid, peoples) =>{
+      
+      await getPeopleById(personid).then((resp)=>{
+        let updatedpersonslist = [...peoples]
+        peoples.push(resp);
         updatedpersonslist.push(resp);
-        peoples.push(updatedpersonslist[0])
-        setSelectedPeople(peoples);
+        // peoples.push(updatedpersonslist[0])
+        setSelectedPeople(updatedpersonslist);
       });   
     }
 

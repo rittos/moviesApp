@@ -260,7 +260,7 @@ const SearchMoviesPage = (props) => {
                           }
                      </div>
               </Grid>
-              <Grid item xs={6}>6</Grid>
+              <Grid item xs={6}></Grid>
               <Grid item xs={12}>    
                   <Button variant="contained" onClick={searchButtonClick} style={{
                     borderRadius: 35,

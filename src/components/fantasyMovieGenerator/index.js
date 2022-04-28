@@ -22,7 +22,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Redirect } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
-  card: { maxWidth: 155, margin:10 },
+  card: { maxWidth: 155,minHeight:350, margin:10 },
   media: { height: 100 },
   horizontal: {float:"left"},
   stack: {marginLeft:150,marginBottom:20,marginTop:20},
@@ -107,17 +107,18 @@ export default function FantasyMovieGenerator({ movie }) {
                 inputProps={{ maxLength: 4}} value={runtime} type="text" 
                 onChange={handleRuntimeChange} className={classes.textfield} /> 
                 </div>
-              <div className={classes.stack}>
-                <Button
-                  variant="contained"
-                  component="label"
-                >
-                  Upload poster
-                  <input
-                    type="file"
-                    hidden
-                  />
-                </Button>  
+                <div className={classes.stack}>
+              <TextField onChange={handleDateChange}
+                id="date"
+                required 
+                label="Release Date"
+                type="date"
+                defaultValue="2021-01-01"
+                sx={{ width: 220 }}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
               </div>
           </Grid>
           <Grid item xs={6}>
@@ -142,19 +143,7 @@ export default function FantasyMovieGenerator({ movie }) {
           </div>
             <div className={classes.stack}>
                 <TextField id="outlined-basic" onChange={handleOverViewChange} required  label="Overview" variant="outlined" /></div>
-            <div className={classes.stack}>
-              <TextField onChange={handleDateChange}
-                id="date"
-                required 
-                label="Release Date"
-                type="date"
-                defaultValue="2021-01-01"
-                sx={{ width: 220 }}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-              />
-              </div>
+            
           </Grid>
       </Grid>
       <div className={classes.stack}>
