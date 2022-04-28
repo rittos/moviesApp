@@ -56,3 +56,12 @@ export const addFantasyMovie = (userId, name, genreId, runtime, overview, releas
     }).then(res => res.json())
 };
 
+
+export const getFantasyMovie = (userid) => {
+    return fetch(`/api/movies/${userid}/fantasymovie`, {
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        method: 'get',
+    }).then(res => res.json())
+};

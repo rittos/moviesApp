@@ -21,13 +21,12 @@ const useStyles = makeStyles((theme) => ({
 
 const TemplateFantasyMoviePage = ({ movie, children }) => {
   const classes = useStyles();
-  movie = undefined;
-if(movie !== undefined)
+if(Object.keys(movie).length !== 0)
       {
             return (
                 <>
                 <div className={classes.root}>
-                <FantasyMovieHeader movie={movie} />        
+                {/* <FantasyMovieHeader movie={movie} />         */}
                 <FantasyMovieCard  movie={movie} />
                 </div>
                 </>

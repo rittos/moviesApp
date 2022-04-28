@@ -1,47 +1,31 @@
-import React, { useState }from "react";
+import React, { useState, useContext, useEffect }from "react";
 import PageTemplate from '../components/templateFantasyMoviePage'
-import { getPopularPeoples } from "../api/tmdb-api";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
-import SampleMovie from "../stories/sampleData";
+import { AuthContext } from "../contexts/authContext";
+import { getFantasyMovie} from "../api/movie-api";
 
 const FantasyMoviePage = (props) => {
+  const authcontext = useContext(AuthContext);
+  const [fantasymovie, setfantasymovie] = useState([]);
 
-//   const [page, setPage] = useState(1);
-//   const { data, error, isLoading, isError } = useQuery(["peoples", page], getPopularPeoples);
+    useEffect(() => {
+      getFantasyMovie(authcontext.userid).then((resp) => {
+        setfantasymovie(resp);
+      });
+    }, [authcontext.userid]);
 
-//   if (isLoading) {
-//     return <Spinner />;
-//   }
-//   if (isError) {
-//     return <h1>{error.message}</h1>;
-//   }
+    //  getFantasyMovie(authcontext.userid).then((resp) => {
+    //   console.log(resp);
+    //   movie = resp;
+    //  });
 
-//   const nextClickHandler = (event) => {
-//     let currentpage = page;
-//     currentpage = currentpage +1 ;
-//     setPage(currentpage);
-//    }
-//    const previousClickHandler = (event) => {
-//     let currentpage = page;
-//     if(currentpage ==1)
-//     {
-
-//     }
-//     else{
-//       currentpage = currentpage -1 ;
-//     }
-//     setPage(currentpage);
-//    }
-
-//   const peoples = data ? data.results : [];
-//   var moviesample = {SampleMovie}
   return (
     <>
     <div>
     <PageTemplate
     title="Fantasy Movie"
-    movie={SampleMovie}
+    movie={fantasymovie}
     // action={(people) => {
     //   return <div people={people} />
     // }}

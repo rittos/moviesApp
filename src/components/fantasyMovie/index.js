@@ -25,14 +25,6 @@ const useStyles = makeStyles({
 
 export default function FantasyMovieCard({ movie }) {
   const classes = useStyles();
-//   const { favourites } = useContext(MoviesContext);
-
-//   if (favourites.find((id) => id === movie.id)) {
-//     movie.favourite = true;
-//   } else {
-//     movie.favourite = false
-//   }
-
   return (
     <Card className={classes.card}>
       <CardHeader
@@ -46,7 +38,7 @@ export default function FantasyMovieCard({ movie }) {
       }
       title={
         <Typography variant="h5" component="p">
-          {movie.title}{" "}
+          {movie.name}{" "}
         </Typography>
       }
     />
@@ -69,7 +61,7 @@ export default function FantasyMovieCard({ movie }) {
           <Grid item xs={6}>
             <Typography variant="h6" component="p">
               <StarRateIcon fontSize="small" />
-              {"  "} {movie.vote_average}{" "}
+              {"  "} {movie.runtime}{" "}
             </Typography>
           </Grid>
         </Grid>
@@ -82,6 +74,14 @@ export default function FantasyMovieCard({ movie }) {
         </Button>
         </Link>
       </CardActions> */}
+
+      <Link
+      to={{
+        pathname: `/fantasymoviedetails/${movie.userId}`,
+      }}
+    >
+      View / Update details
+    </Link>
     </Card>
   );
 }
