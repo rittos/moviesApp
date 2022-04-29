@@ -4,11 +4,13 @@ import { getTopRatedMovies } from "../api/tmdb-api";
 import { useQuery } from "react-query";
 import AddToFavouritesIcon from '../components/cardIcons/addToFavourites'
 import useFiltering from "../hooks/useFiltering";
+import useSorting from "../hooks/useSorting";
 import Spinner from "../components/spinner";
 import MovieFilterUI, {
   titleFilter,
   genreFilter,
-  languageFilter
+  languageFilter,
+  paramSort
 } from "../components/movieFilterUI";
 
 const TopRatedMovies = (props) => {
@@ -28,12 +30,21 @@ const TopRatedMovies = (props) => {
     value: "",
     condition: languageFilter,
   };
+  const paramSorting = {
+    name: "Title Ascending",
+    value: "title_asc",
+    condition: paramSort,
+  };
 
   const [page, setPage] = useState(1);
   const { data, error, isLoading, isError } = useQuery(["toprated", { page: page }], getTopRatedMovies);
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [],
     [titleFiltering, genreFiltering, languageFiltering]
+  );
+  const { sortValues, setSortValues, sortFunction } = useSorting(
+    [],
+    [paramSorting]
   );
 
   if (isLoading) {
@@ -83,13 +94,17 @@ const TopRatedMovies = (props) => {
         default:
           newFilters = [];
           break;
-
-
       }
     setFilterValues(newFilters);
   };
+  const changeSortValues = (type, value) => {
+    const sortValues = { name: type, value: value };
+    setSortValues(sortValues);
+  }
+
   const movies = data ? data.results : [];
-  const displayedMovies = filterFunction(movies);
+  var displayedMovies = filterFunction(movies);
+  displayedMovies = sortFunction(displayedMovies);
 
   return (
     <>
@@ -102,6 +117,7 @@ const TopRatedMovies = (props) => {
   />
     <MovieFilterUI
     filterInputChange={changeFilterValues}
+    sortInputChange={changeSortValues}
     titleFilter={filterValues[0].value}
     genreFilter={filterValues[1].value}
     languageFilter={filterValues[2].value}

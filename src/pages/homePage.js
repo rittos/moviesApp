@@ -3,7 +3,6 @@ import PageTemplate from "../components/templateMovieListPage";
 import { getMovies } from "../api/tmdb-api";
 import useSorting from "../hooks/useSorting";
 import useFiltering from "../hooks/useFiltering";
-import ReactPaginate from 'react-paginate';
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
 import AddToFavouritesIcon from '../components/cardIcons/addToFavourites'
@@ -84,7 +83,6 @@ const HomePage = (props) => {
   const changeFilterValues = (type, value) => {
     const newf = { name: type, value: value };
     var newFilters = [];
-      // type === "title" ? [newf, filterValues[1]] : [filterValues[0], newf];
       switch(type){
         case "title":
           newFilters = [newf, filterValues[1], filterValues[2]];
@@ -98,8 +96,6 @@ const HomePage = (props) => {
         default:
           newFilters = [];
           break;
-
-
       }
     setFilterValues(newFilters);
   };
@@ -131,15 +127,6 @@ const HomePage = (props) => {
         languageFilter={filterValues[2].value}
         paramSort={sortValues.value}
       />
-      {/* <ReactPaginate
-            previousLabel={'prev'}
-            nextLabel={'next'}
-            pageCount={pages}
-            onPageChange={handlePageClick}
-            containerClassName={'pagination'}
-            activeClassName={'active'}
-            
-      /> */}
       <button style={{backgroundColor: "#646496", color: "white", padding:5, borderRadius: 5, marginTop: 5}} disabled={page == 1? true:false} onClick={previousClickHandler}>Previous</button>
       <span style={{ backgroundColor: "#ff4557", margin:3,padding:5,borderRadius:3, color: "white"}}> {page} </span>
       <button style={{backgroundColor: "#646496", color: "white", padding:5, borderRadius: 5, marginTop: 5}} onClick= {nextClickHandler}>Next</button>
