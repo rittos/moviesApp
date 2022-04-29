@@ -7,18 +7,10 @@ import PlaceIcon from '@material-ui/icons/Place';
 import Button from "@material-ui/core/Button";
 import { getMovieCredits } from "../../api/tmdb-api";
 import { useQuery } from "react-query";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import CardHeader from "@material-ui/core/CardHeader";
 import Grid from "@material-ui/core/Grid";
-import CalendarIcon from "@material-ui/icons/CalendarTodayTwoTone";
-import StarRateIcon from "@material-ui/icons/StarRate";
 import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
 import MovieList from "../movieList";
-import Header from "../headerMovieList";
+
 
 const useStyles = makeStyles((theme) => ({
   chipRoot: {
@@ -43,9 +35,6 @@ const useStyles = makeStyles((theme) => ({
   chipLabel: {
     margin: theme.spacing(0.5),
   },
-  // card: { maxWidth: 100 },
-  // media: { height: 125 },
-  // horizontal: {float:"left", marginTop:50},
   fab: { 
     position: "fixed",
     top: theme.spacing(15),
@@ -61,28 +50,25 @@ const PeopleDetails = ( {people}) => {
   // val peopleid = searchParams.get("")
   const { data, error, isLoading, isError } = useQuery(["moviecredits", { id: id }], getMovieCredits);
   const movies = data ? data.cast : [];
-  var isRender = false;
-  const showMovieCreditsHandler= () =>{
-    isRender = true;
-  }
+
   return (
     <>
       <Typography variant="h5" component="h3">
         Overview
       </Typography>
       <Typography variant="h6" component="p">
-       <CakeIcon></CakeIcon>Birthday : {people.birthday}
+       <CakeIcon></CakeIcon>Birthday : {people.birthday!==""?people.birthday: "Not Available"}
       </Typography>
       <Typography variant="h6" component="p">
-        <PlaceIcon></PlaceIcon>Place of Birth : {people.place_of_birth}
+        <PlaceIcon></PlaceIcon>Place of Birth : {people.place_of_birth!== "" ?people.place_of_birth : "Not Available"}
       </Typography>
       <Container fixed style={{ backgroundColor: "skyblue", padding:30, borderRadius:10, color:"white", marginTop:20}}>
       <Typography variant="h6" component="p">
-        {people.biography}
+        {people.biography!== "" ?people.biography :  "Biography not Available"}
       </Typography></Container>
           <Grid container >
             <Grid item xs={12}>
-              <Button variant="outlined"  style={{marginTop: 20}} color="primary" onClick={showMovieCreditsHandler}>
+              <Button variant="outlined"  style={{marginTop: 20}} color="primary">
                 Movie Credits
               </Button>
             </Grid>
@@ -94,56 +80,6 @@ const PeopleDetails = ( {people}) => {
             movies={movies} />
             </Grid>
           </Grid>
-
-      {/* {movies.map((movie) => {
-          return (
-          <div  key={movie.id}  className={classes.horizontal}>
-            <Card className={classes.card}>
-            <CardHeader
-            className={classes.header}
-            title={
-              <Typography variant="h6" component="p">
-                {movie.title}{" "}
-              </Typography>
-            }
-          />
-            <CardMedia
-              className={classes.media}
-              image={
-                movie.poster_path
-                  ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
-                  : `${process.env.PUBLIC_URL}/assets/film-poster-placeholder.png`
-              }
-            />
-            <CardContent>
-              <Grid container>
-                <Grid item xs={6}>
-                  <Typography variant="caption" component="p">
-                    <CalendarIcon fontSize="small" />
-                    {movie.release_date}
-                  </Typography>
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography variant="caption" component="p">
-                    <StarRateIcon fontSize="small" />
-                    {"  "} {movie.vote_average}{" "}
-                  </Typography>
-                </Grid>
-              </Grid>
-            </CardContent>
-            <CardActions disableSpacing>
-            {/* {action(movie)} */}
-              {/* <Link to={`/movies/${movie.id}`}>
-              <Button variant="outlined" size="medium" color="primary">
-                More Info ...
-              </Button>
-              </Link>
-            </CardActions>
-          </Card>
-        </div>
-          ); } 
-          )
-        // } */} 
     </>
   );
 };

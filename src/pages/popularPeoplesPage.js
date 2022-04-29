@@ -7,7 +7,7 @@ import Spinner from "../components/spinner";
 const PopularPeoples = (props) => {
 
   const [page, setPage] = useState(1);
-  const { data, error, isLoading, isError } = useQuery(["peoples", page], getPopularPeoples);
+  const { data, error, isLoading, isError } = useQuery(["popularpeoples", page], getPopularPeoples);
 
   if (isLoading) {
     return <Spinner />;
