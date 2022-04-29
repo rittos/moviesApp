@@ -218,4 +218,4 @@ Added modal pop up compoent for listing popular people which is reused across mu
 ![image](https://github.com/rittos/moviesApp/blob/develop/images/conditional_rendering_image1.png)
 ![image](https://github.com/rittos/moviesApp/blob/develop/images/conditional_rendering_image2.png)
 
-Added conditional rendering for fantasymovie page.Same route is rendering different template based on condition pprovided.
+Added conditional rendering for fantasymovie page.Same route is rendering different template based on condition provided.
