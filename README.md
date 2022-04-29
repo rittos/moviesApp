@@ -23,8 +23,7 @@ __Name:__ [Ritto Thimothy]
 __Popular People.__
 __The Popular People feature.__
 
-
-![][https://github.com/rittos/moviesApp/blob/develop/images/popular_people.png]
+[image](https://github.com/rittos/moviesApp/blob/develop/images/popular_people.png)
 
 > Lists of people from the popular people endpoint of TMDB
 
@@ -33,7 +32,7 @@ __URL:__ /people/popular
 __People Details.__
 __People Details feature.__
 
-![][people_details]
+[image](https://github.com/rittos/moviesApp/blob/develop/images/people_details.png)
 
 > fetch individual people details including image and texts.
 
@@ -42,7 +41,7 @@ __URL:__ /people/:id
 __People Movie Credits.__
 __People Movie Credits feature.__
 
-![][people_movie_credits]
+[image](https://github.com/rittos/moviesApp/blob/develop/images/people_movie_credits.png)
 
 > fetch movie credits with movie image of individual people in people details screen.
 
@@ -51,8 +50,8 @@ __URL:__ /people/:id
 __Movie Search Form.__
 __Movie Search Form feature.__
 
-![][movie_search_form]
-![][movie_search_modal]
+[image](https://github.com/rittos/moviesApp/blob/develop/images/movie_search_form.png)
+[image](https://github.com/rittos/moviesApp/blob/develop/images/movie_search_modal.png)
 
 > Lists all movies based on filter criteria selected from form inputs, includes option to select actors from modal popup.
 
@@ -62,8 +61,8 @@ __URL:__ /movies/searchmovie
 __Add Fantasy Movie.__
 __Add Fantasy Movie feature.__
 
-![][add_fantasy_movie_image1.png]
-![][add_fantasy_movie_image2.png]
+[image](https://github.com/rittos/moviesApp/blob/develop/images/add_fantasy_movie_image1.png)
+[image](https://github.com/rittos/moviesApp/blob/develop/images/add_fantasy_movie_image2.png)
 
 > Provides option to create a fantasy movie, includes cast selection from popup modal.
 
@@ -72,7 +71,7 @@ __URL:__ /fantasymovie
 __Fantasy Movie Listing.__
 __Fantasy Movie Listing feature.__
 
-![][fantasy_movie]
+[image](https://github.com/rittos/moviesApp/blob/develop/images/fantasy_movie.png)
 
 > Display logged in user created fantasy movie with hyperlink to details.
 
@@ -81,7 +80,7 @@ __URL:__ /fantasymovie
 __Fantasy Movie Details.__
 __Fantasy Movie Details feature.__
 
-![][fantasy_movie_details]
+[image](https://github.com/rittos/moviesApp/blob/develop/images/fantasy_movie_details.png)
 
 > fetch fantasy movie details including casts images in card 
 
@@ -90,8 +89,8 @@ __URL:__ /fantasymoviedetails/:id
 __Login & Sign Up.__
 __Login & Sign Up feature.__
 
-![][login]
-![][signup]
+[image](https://github.com/rittos/moviesApp/blob/develop/images/login.png)
+[image](https://github.com/rittos/moviesApp/blob/develop/images/signup.png)
 
 > allows user to login to website and register a new account if needed.And also restricts features favorite only for authenticated users. Includes publicand private page implementation as well.
 
@@ -101,7 +100,7 @@ __URL:__ /signup
 __Sorting & Filtering.__
 __Sorting & Filtering feature.__
 
-![][filter_and_sort]
+[image](https://github.com/rittos/moviesApp/blob/develop/images/filter_and_sort.png)
 
 > User can filter movies based on Language & Genre, include sorting based on movie title
 
@@ -110,8 +109,8 @@ __URL:__ /
 __Pagination.__
 __Pagination feature.__
 
-![][movies_pagination]
-![][peoples_pagination]
+[image](https://github.com/rittos/moviesApp/blob/develop/images/movies_pagination.png)
+[image](https://github.com/rittos/moviesApp/blob/develop/images/peoples_pagination.png)
 
 > Pagination added across multiple screen including movie listing, people listing and movie search form page.
 
