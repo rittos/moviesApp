@@ -38,11 +38,8 @@ const paramSorting = {
 };
 
 const HomePage = (props) => {
-  //Pagination state properties
-  // const [perPage, setPerPage] = useState();
-  const [page, setPage] = useState(1);
-  // const [pages, setPages] = useState(100);
 
+  const [page, setPage] = useState(1);
   const { data, error, isLoading, isError } = useQuery(["discover", page], getMovies);
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [],
@@ -59,11 +56,6 @@ const HomePage = (props) => {
     let currentpage = event.selected;
     currentpage = currentpage +1 ;
     setPage(currentpage);
-    // setPages(100);
-    // alert(page);
-    // getMovies(page).then(movies => {
-    //   setMovies(movies.results);
-    // });
    }
 
    const nextClickHandler = (event) => {
@@ -75,7 +67,6 @@ const HomePage = (props) => {
     let currentpage = page;
     if(currentpage ==1)
     {
-
     }
     else{
       currentpage = currentpage -1 ;

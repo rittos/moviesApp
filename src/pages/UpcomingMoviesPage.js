@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import PageTemplate from '../components/templateMovieListPage'
 import { getUpcomingMovies } from "../api/tmdb-api";
 import { useQuery } from "react-query";
@@ -28,7 +28,9 @@ const UpcomingMovies = (props) => {
     value: "",
     condition: languageFilter,
   };
-  const { data, error, isLoading, isError } = useQuery(["upcoming"], getUpcomingMovies);
+
+  const [page, setPage] = useState(1);
+  const { data, error, isLoading, isError } = useQuery(["upcoming", { page: page }], getUpcomingMovies);
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [],
     [titleFiltering, genreFiltering, languageFiltering]
@@ -40,6 +42,29 @@ const UpcomingMovies = (props) => {
   if (isError) {
     return <h1>{error.message}</h1>;
   }
+
+    // pagination page click handler
+    const handlePageClick = (event) => {
+      let currentpage = event.selected;
+      currentpage = currentpage +1 ;
+      setPage(currentpage);
+     }
+  
+     const nextClickHandler = (event) => {
+      let currentpage = page;
+      currentpage = currentpage +1 ;
+      setPage(currentpage);
+     }
+     const previousClickHandler = (event) => {
+      let currentpage = page;
+      if(currentpage ==1)
+      {
+      }
+      else{
+        currentpage = currentpage -1 ;
+      }
+      setPage(currentpage);
+     }
 
   const changeFilterValues = (type, value) => {
     const newf = { name: type, value: value };
@@ -81,6 +106,9 @@ const UpcomingMovies = (props) => {
     genreFilter={filterValues[1].value}
     languageFilter={filterValues[2].value}
     />
+     <button style={{backgroundColor: "#646496", color: "white", padding:5, borderRadius: 5, marginTop: 5}} disabled={page == 1? true:false} onClick={previousClickHandler}>Previous</button>
+      <span style={{ backgroundColor: "#ff4557", margin:3,padding:5,borderRadius:3, color: "white"}}> {page} </span>
+      <button style={{backgroundColor: "#646496", color: "white", padding:5, borderRadius: 5, marginTop: 5}} onClick= {nextClickHandler}>Next</button>
   </>
   );
 };

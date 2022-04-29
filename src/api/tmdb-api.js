@@ -73,9 +73,11 @@ export const getMovies = (param) => {
       });
   };
 
-  export const getUpcomingMovies = () => {
+  export const getUpcomingMovies = (args) => {
+    const [, pagePart] = args.queryKey;
+    const { page } = pagePart;
     return fetch(
-      `https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&include_adult=false&page=1`
+      `https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&include_adult=false&page=${page}`
     )
       .then(res => res.json())
       // .then(json => json.results);
@@ -156,16 +158,20 @@ export const getMovies = (param) => {
      });
     };
 
-    export const getTopRatedMovies = () => {
+    export const getTopRatedMovies = (args) => {
+      const [, pagePart] = args.queryKey;
+      const { page } = pagePart;
       return fetch(
-        `https://api.themoviedb.org/3/movie/top_rated?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&include_adult=false&page=1`
+        `https://api.themoviedb.org/3/movie/top_rated?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&include_adult=false&page=${page}`
       )
         .then(res => res.json())
         // .then(json => json.results);
     };
-    export const getNowPlayingMovies = () => {
+    export const getNowPlayingMovies = (args) => {
+      const [, pagePart] = args.queryKey;
+      const { page } = pagePart;
       return fetch(
-        `https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&include_adult=false&page=1`
+        `https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&include_adult=false&page=${page}`
       )
         .then(res => res.json())
         // .then(json => json.results);
