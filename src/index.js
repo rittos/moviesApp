@@ -68,5 +68,4 @@ const App = () => {
     </QueryClientProvider>
   );
 };
-
 ReactDOM.render(<App />, document.getElementById("root"));
