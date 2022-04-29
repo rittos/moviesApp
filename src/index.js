@@ -21,6 +21,9 @@ import LoginPage from "./pages/loginPage";
 import PublicRoute from './components/publicRoute';
 import PrivateRoute from './components/privateRoute';
 import FantasyMovieDetails from "./pages/fantasyMovieDetailsPage";
+import TopRatedMovies from "./pages/topRatedMoviePage";
+import NowPlayingMovies from "./pages/nowPlayingMoviesPage";
+import LatestPeoples from "./pages/latestPeoplePage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -46,9 +49,12 @@ const App = () => {
         <PrivateRoute exact path="/fantasymovie" component={FantasyMoviePage} />
         <PrivateRoute exact path="/fantasymoviedetails/:id" component={FantasyMovieDetails} />
         <Route exact path="/people/popular" component={PopularPeoplesPage} />
+        <Route exact path="/people/latest" component={LatestPeoples} />
         <Route path="/people/:id" component={peoplePage} />
         <Route exact path="/reviews/form" component={AddMovieReviewPage} />
         <Route exact path="/movies/upcoming" component={UpcomingMoviesPage} /> 
+        <Route exact path="/movies/toprated" component={TopRatedMovies} /> 
+        <Route exact path="/movies/nowplaying" component={NowPlayingMovies} /> 
         <PrivateRoute exact path="/movies/favourites" component={FavouriteMoviesPage} />        
         <PrivateRoute path="/movies/:id" component={MoviePage} />
         <Route path="/reviews/:id" component={MovieReviewPage} />
@@ -58,7 +64,7 @@ const App = () => {
       </MoviesContextProvider>
       </AuthContextProvider>
     </BrowserRouter>
-    {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+    <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 };

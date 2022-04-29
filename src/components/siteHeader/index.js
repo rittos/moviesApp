@@ -35,18 +35,16 @@ const SiteHeader = () => {
   var menuOptions = [
     { label: "Home", path: "/" },
     { label: "Upcoming", path: "/movies/upcoming" },
+    { label: "Now Playing", path: "/movies/nowplaying" },
+    { label: "Top Rated", path: "/movies/toprated" },
     { label: "Favorites", path: "/movies/favourites" },
-    { label: "Popular People", path: "/people/popular" },
-    { label: "Search Movies", path: "/movies/searchmovie" },
     { label: "Fantasy Movie", path: "/fantasymovie" },
-    // { label: "Login", path: "/login" },
+    { label: "Popular People", path: "/people/popular" },
+    { label: "Latest People", path: "/people/latest" },
+    { label: "Search Movies", path: "/movies/searchmovie" },
+    
   ];
-  // if(authcontext != null){
-  //   if(authcontext.isAuthenticated){
-  //     menuOptions.pop();
-  //   }
-  // }
-  
+
   const handleMenuSelect = (pageURL) => {
     history.push(pageURL);
   };
@@ -92,9 +90,9 @@ const SiteHeader = () => {
           <Typography variant="h4" className={classes.title}>
             TMDB Client
           </Typography>
-          <Typography variant="h6" className={classes.title}>
+          {/* <Typography variant="h6" className={classes.title}>
             All you ever wanted to know about Movies!
-          </Typography>
+          </Typography> */}
           {isMobile ? (
             <>
               <IconButton

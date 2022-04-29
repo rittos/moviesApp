@@ -4,6 +4,7 @@ import SampleMovie from "./sampleData";
 import { MemoryRouter } from "react-router";
 import MoviesContextProvider from "../contexts/moviesContext";
 import { action } from "@storybook/addon-actions";
+import AuthContextProvider from "../contexts/authContext";
 
 export default {
   title: "Home Page/MovieCard",
@@ -11,6 +12,7 @@ export default {
   decorators: [
     (Story) => <MemoryRouter initialEntries={["/"]}>{Story()}</MemoryRouter>,
     (Story) => <MoviesContextProvider>{Story()}</MoviesContextProvider>,
+    (Story) => <AuthContextProvider>{Story()}</AuthContextProvider>,
   ],  
 };
 

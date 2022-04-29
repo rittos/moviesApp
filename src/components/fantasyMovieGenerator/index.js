@@ -19,7 +19,7 @@ import { AuthContext } from "../../contexts/authContext";
 import TextField from '@material-ui/core/TextField';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory} from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   card: { maxWidth: 155,minHeight:350, margin:10 },
@@ -35,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function FantasyMovieGenerator({ movie }) {
   const classes = useStyles();
+  const history = useHistory();
   const [selectedpeoples, setSelectedPeople] = useState([]);
   const { data, error, isLoading, isError } = useQuery("genres", getGenres);
   const [genreId, setGenreId] = useState("0");
@@ -93,7 +94,7 @@ export default function FantasyMovieGenerator({ movie }) {
   const addFantasyMovieHandler =  async () => {
     const result = await addFantasyMovie(authcontext.userid, name, genreId, runtime, overview, releaseDt,actorIds);
     toast("Successfully added your fantasy movie!");
-    return <Redirect to="/fantasymovie" />;
+    history.push("/");
   }
   return (
     <>

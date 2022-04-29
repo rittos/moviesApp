@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import PageTemplate from '../components/templateMovieListPage'
-import { getUpcomingMovies } from "../api/tmdb-api";
+import { getNowPlayingMovies } from "../api/tmdb-api";
 import { useQuery } from "react-query";
 import AddToFavouritesIcon from '../components/cardIcons/addToFavourites'
 import useFiltering from "../hooks/useFiltering";
@@ -13,7 +13,7 @@ import MovieFilterUI, {
   paramSort
 } from "../components/movieFilterUI";
 
-const UpcomingMovies = (props) => {
+const NowPlayingMovies = (props) => {
 
   const titleFiltering = {
     name: "title",
@@ -37,12 +37,11 @@ const UpcomingMovies = (props) => {
   };
 
   const [page, setPage] = useState(1);
-  const { data, error, isLoading, isError } = useQuery(["upcoming", { page: page }], getUpcomingMovies);
+  const { data, error, isLoading, isError } = useQuery(["nowplaying", { page: page }], getNowPlayingMovies);
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [],
     [titleFiltering, genreFiltering, languageFiltering]
   );
-
   const { sortValues, setSortValues, sortFunction } = useSorting(
     [],
     [paramSorting]
@@ -55,28 +54,28 @@ const UpcomingMovies = (props) => {
     return <h1>{error.message}</h1>;
   }
 
-    // pagination page click handler
-    const handlePageClick = (event) => {
-      let currentpage = event.selected;
-      currentpage = currentpage +1 ;
-      setPage(currentpage);
-     }
-  
-     const nextClickHandler = (event) => {
-      let currentpage = page;
-      currentpage = currentpage +1 ;
-      setPage(currentpage);
-     }
-     const previousClickHandler = (event) => {
-      let currentpage = page;
-      if(currentpage ==1)
-      {
-      }
-      else{
-        currentpage = currentpage -1 ;
-      }
-      setPage(currentpage);
-     }
+  // pagination page click handler
+  const handlePageClick = (event) => {
+  let currentpage = event.selected;
+  currentpage = currentpage +1 ;
+  setPage(currentpage);
+  }
+
+  const nextClickHandler = (event) => {
+  let currentpage = page;
+  currentpage = currentpage +1 ;
+  setPage(currentpage);
+  }
+  const previousClickHandler = (event) => {
+  let currentpage = page;
+  if(currentpage ==1)
+  {
+  }
+  else{
+    currentpage = currentpage -1 ;
+  }
+  setPage(currentpage);
+  }
 
   const changeFilterValues = (type, value) => {
     const newf = { name: type, value: value };
@@ -98,6 +97,7 @@ const UpcomingMovies = (props) => {
       }
     setFilterValues(newFilters);
   };
+
   const changeSortValues = (type, value) => {
     const sortValues = { name: type, value: value };
     setSortValues(sortValues);
@@ -110,7 +110,7 @@ const UpcomingMovies = (props) => {
   return (
     <>
     <PageTemplate
-    title="Upcoming Movies"
+    title="Now Playing Movies"
     movies={displayedMovies}
     action={(movie) => {
       return <AddToFavouritesIcon movie={movie} />
@@ -129,4 +129,4 @@ const UpcomingMovies = (props) => {
   </>
   );
 };
-export default UpcomingMovies;
+export default NowPlayingMovies;

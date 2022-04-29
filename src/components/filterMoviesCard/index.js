@@ -50,7 +50,6 @@ export default function FilterMoviesCard(props) {
     getLanguages().then((languages) => {
       setLanguages(languages);
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (isLoading) {
