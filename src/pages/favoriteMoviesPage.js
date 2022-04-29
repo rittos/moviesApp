@@ -5,9 +5,10 @@ import { useQueries } from "react-query";
 import { getMovie } from "../api/tmdb-api";
 import Spinner from "../components/spinner";
 import useFiltering from "../hooks/useFiltering";
-import MovieFilterUI, { languageFilter, titleFilter } from "../components/movieFilterUI";
+import MovieFilterUI, { languageFilter, titleFilter, paramSort } from "../components/movieFilterUI";
 import RemoveFromFavourites from "../components/cardIcons/removeFromFavourites";
 import WriteReview from "../components/cardIcons/writeReview";
+import useSorting from "../hooks/useSorting";
 
 const titleFiltering = {
   name: "title",
@@ -30,11 +31,21 @@ const languageFiltering = {
   condition: languageFilter,
 };
 
+const paramSorting = {
+  name: "Title Ascending",
+  value: "title_asc",
+  condition: paramSort,
+};
+
 const FavouriteMoviesPage = () => {
   const { favourites: movieIds } = useContext(MoviesContext);
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [],
     [titleFiltering, genreFiltering, languageFiltering]
+  );
+  const { sortValues, setSortValues, sortFunction } = useSorting(
+    [],
+    [paramSorting]
   );
 
   // Create an array of queries and run in parallel.
@@ -54,9 +65,11 @@ const FavouriteMoviesPage = () => {
   }
 
   const allFavourites = favouriteMovieQueries.map((q) => q.data);
-  const displayMovies = allFavourites
+  var displayMovies = allFavourites
     ? filterFunction(allFavourites)
     : [];
+
+    displayMovies = sortFunction(displayMovies);
 
   const toDo = () => true;
 
@@ -82,6 +95,10 @@ const FavouriteMoviesPage = () => {
       }
     setFilterValues(newFilters);
   };
+  const changeSortValues = (type, value) => {
+    const sortValues = { name: type, value: value };
+    setSortValues(sortValues);
+  }
 
   return (
     <>
@@ -99,6 +116,7 @@ const FavouriteMoviesPage = () => {
       />
       <MovieFilterUI
         filterInputChange={changeFilterValues}
+        sortInputChange={changeSortValues}
         titleFilter={filterValues[0].value}
         genreFilter={filterValues[1].value}
         languageFilter={filterValues[2].value}
