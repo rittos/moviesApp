@@ -48,7 +48,7 @@ const SearchMoviesPage = (props) => {
   const [languages, setLanguages] = useState([]);
   const [genres, setGenres] = useState([]);
   const [page, setPage] = useState(1);
-  const { data, error, isLoading, isError } = useQuery(["searchmovies", page, filtergen, filterlng, filtercast, filteradult], searchMovies);
+  const { data, error, isLoading, isError } = useQuery(["searchmovies", {page: page},{ genreId:filtergen}, {languageId: filterlng},{actorId: filtercast},{adult: filteradult}], searchMovies);
 
   if(genres !== undefined){
   if(genres.length > 0){
@@ -94,9 +94,6 @@ const SearchMoviesPage = (props) => {
       }
       setPage(currentpage);
      }
-  
-
-
   // bringing No Language option at the top of the list
   if(languages.length>0){
     languages.filter((data) => data.iso_639_1 !== 'xx');
@@ -104,7 +101,6 @@ const SearchMoviesPage = (props) => {
       languages.unshift({ iso_639_1: "xx", english_name: "No Language", name: "No Language" });
     } 
   }
-
   const handleGenreChange = (e) => {
     console.log( e.target.value);
     setSelectedGenres(e.target.value);
@@ -126,8 +122,6 @@ const SearchMoviesPage = (props) => {
     console.log(result);
     setfiltercast(result);
   }
-
-
   const handleAddActor = (actor) => {
     var peoples = [];
     peoples.push(actor);
@@ -147,8 +141,6 @@ const SearchMoviesPage = (props) => {
     }
 
   }
-
-
   return (
     <>
     <div className={classes.container}>

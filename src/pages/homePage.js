@@ -39,7 +39,7 @@ const paramSorting = {
 const HomePage = (props) => {
 
   const [page, setPage] = useState(1);
-  const { data, error, isLoading, isError } = useQuery(["discover", page], getMovies);
+  const { data, error, isLoading, isError } = useQuery(["discover", { page: page }], getMovies);
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [],
     [titleFiltering, genreFiltering, languageFiltering]
