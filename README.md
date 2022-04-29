@@ -17,7 +17,7 @@ __Name:__ [Ritto Thimothy]
 + Add Fantasy Movie
 + Fantasy Movie Listing
 + Fantasy Movie Details
-+ Login & Sign Up
++ Login & Sign Up (Authentication based public and private page)
 + Pagination
 
 ## Feature Design.
@@ -159,25 +159,52 @@ __URL:__ /
 ![image](https://github.com/rittos/moviesApp/blob/develop/images/story_overview.png)
 ![image](https://github.com/rittos/moviesApp/blob/develop/images/story_peoplecard.png)
 ![image](https://github.com/rittos/moviesApp/blob/develop/images/story_peoplecard_exception.png)
-
 ![image](https://github.com/rittos/moviesApp/blob/develop/images/story_peopledetails.png)
 ![image](https://github.com/rittos/moviesApp/blob/develop/images/story_peopleheader.png)
 
 ### Server state caching.
 
-[Show a screenshot(s) from the react-query Dev tools that illustrate all the entity types cached by your app (Use appropriate magnification for accessibility). State the type of data relating to each cache entry.]
+![image](https://github.com/rittos/moviesApp/blob/develop/images/cache_home_discover.png)
+![image](https://github.com/rittos/moviesApp/blob/develop/images/cache_moviedetails.png)
+![image](https://github.com/rittos/moviesApp/blob/develop/images/cache_upcoming.png)
+![image](https://github.com/rittos/moviesApp/blob/develop/images/cache_nowplaying.png)
+![image](https://github.com/rittos/moviesApp/blob/develop/images/cache_toprated.png)
+![image](https://github.com/rittos/moviesApp/blob/develop/images/cache_popularpeople.png)
+![image](https://github.com/rittos/moviesApp/blob/develop/images/cache_people.png)
+![image](https://github.com/rittos/moviesApp/blob/develop/images/cache_moviecredits.png)
+![image](https://github.com/rittos/moviesApp/blob/develop/images/cache_latestpeople.png)
+![image](https://github.com/rittos/moviesApp/blob/develop/images/cache_moviecredits.png)
+![image](https://github.com/rittos/moviesApp/blob/develop/images/cache_searchform.png)
 
-e.g.
-
-![][image4]
-
-+ [discover] - List of movies from the Discovery endpoint.
++ [discover,[page:page]] - List of movies from the Discovery endpoint.
 + [movie,[id,:id]] - All properties for a particular movie.
-+ etc
++ [upcoming,[page:page]] - List of all upcoming movies in theatres from the upcoming endpoint.
++ [nowplaying,[page:page]] - List of now playing movies in theatres from the now_playing endpoint.
++ [toprated,[page:page]] - List of top rated movies in theatres from the top_rated endpoint.
++ [popularpeople,[page:page]] - List of popular people from the popular endpoint.
++ [people,[id:id]] - All properties of a particular people.
++ [moviecredits,[id,id]] - All movie credit details of a particular people from movie_credits endpoint.
++ [latestpeoples] - Most newly created person from tmdb latest endpoint. This is a live response and will continuously change.
++ [searchmovies,[page:page,genreId:genreId,languageId:languageId,actorId:actorId,adult:adult]] - Lists all movies based on form filter criteria submitted.Uses discover endpoint from tmdb.
 
 ## Authentication.
 
 [Briefly explain the method used for supporting authentication and include any relevant screenshots (e.g. Dev tools Network tab for session keys). State which parts of the app's functionality require authentication, e.g. the Favourites feature.]
+![image](https://github.com/rittos/moviesApp/blob/develop/images/auth_signup.png)
+![image](https://github.com/rittos/moviesApp/blob/develop/images/auth_mongodb.png)
+
+Authentication primarily based on the email and password which user can register via website. This will be persisted in mongo db with node js api. When user successfully logins with email and password, all private pages and features restricted to autheticated users will be visible and accessible.
+
+![image](https://github.com/rittos/moviesApp/blob/develop/images/auth_favoritespage.png)
+![image](https://github.com/rittos/moviesApp/blob/develop/images/auth_authenticated_favorites.png)
+
+Authenticated user will have access to private pages Favorites and Fantasy Movie.
+
+![image](https://github.com/rittos/moviesApp/blob/develop/images/auth_home.png)
+![image](https://github.com/rittos/moviesApp/blob/develop/images/auth_authenticated_home.png)
+
+"Add favorite icon" in all movie listing page will only be available to authenticated user.
+
 
 ## Algorithm (if relevant).
 
@@ -185,10 +212,10 @@ e.g.
 
 ## Additional Information.
 
-[Highlight any other aspects of your app's design or implementation that is non-standard and worthy of mention.]
+![image](https://github.com/rittos/moviesApp/blob/develop/images/modal_popup_component.png)
+Added modal pop up compoent for listing popular people which is reused across multiple pages (Movie Search page & Fantasy Movie page)
 
-[image1]: ./images/image1.png
-[image2]: ./images/image2.png
-[image3]: ./images/image3.png
-[image4]: ./images/image4.png
-[image5]: ./images/image5.png
+![image](https://github.com/rittos/moviesApp/blob/develop/images/conditional_rendering_image1.png)
+![image](https://github.com/rittos/moviesApp/blob/develop/images/conditional_rendering_image2.png)
+
+Added conditional rendering for fantasymovie page.Same route is rendering different template based on condition pprovided.
