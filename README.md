@@ -18,6 +18,7 @@ __Name:__ [Ritto Thimothy]
 + Fantasy Movie Listing
 + Fantasy Movie Details
 + Login & Sign Up (Authentication based public and private page)
++ Sorting & Filtering
 + Pagination
 
 ## Feature Design.
@@ -151,9 +152,6 @@ __Pagination feature.__
 ![image](https://github.com/rittos/moviesApp/blob/develop/images/peoples_pagination.png)
 
 > Pagination added across multiple screen including movie listing, people listing and movie search form page.
-
-__URL:__ /
-
 
 ## Storybook.
 ![image](https://github.com/rittos/moviesApp/blob/develop/images/story_overview.png)
