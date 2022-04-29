@@ -50,8 +50,8 @@ __Top rated Movies feature.__
 
 __URL:__ /movies/toprated
 
-__Popular People.__
-__The Popular People feature.__
+__Latest People.__
+__The Latest People feature.__
 
 ![image](https://github.com/rittos/moviesApp/blob/develop/images/latest_people.png)
 
