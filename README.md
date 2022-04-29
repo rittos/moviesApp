@@ -18,6 +18,7 @@ __Name:__ [Ritto Thimothy]
 + Fantasy Movie Listing
 + Fantasy Movie Details
 + Login & Sign Up (Authentication based public and private page)
++ Sorting & Filtering
 + Pagination
 
 ## Feature Design.
@@ -49,8 +50,8 @@ __Top rated Movies feature.__
 
 __URL:__ /movies/toprated
 
-__Popular People.__
-__The Popular People feature.__
+__Latest People.__
+__The Latest People feature.__
 
 ![image](https://github.com/rittos/moviesApp/blob/develop/images/latest_people.png)
 
@@ -152,9 +153,6 @@ __Pagination feature.__
 
 > Pagination added across multiple screen including movie listing, people listing and movie search form page.
 
-__URL:__ /
-
-
 ## Storybook.
 ![image](https://github.com/rittos/moviesApp/blob/develop/images/story_overview.png)
 ![image](https://github.com/rittos/moviesApp/blob/develop/images/story_peoplecard.png)
@@ -189,33 +187,27 @@ __URL:__ /
 
 ## Authentication.
 
-[Briefly explain the method used for supporting authentication and include any relevant screenshots (e.g. Dev tools Network tab for session keys). State which parts of the app's functionality require authentication, e.g. the Favourites feature.]
 ![image](https://github.com/rittos/moviesApp/blob/develop/images/auth_signup.png)
 ![image](https://github.com/rittos/moviesApp/blob/develop/images/auth_mongodb.png)
 
-Authentication primarily based on the email and password which user can register via website. This will be persisted in mongo db with node js api. When user successfully logins with email and password, all private pages and features restricted to autheticated users will be visible and accessible.
+> Authentication primarily based on the email and password which user can register via website. This will be persisted in mongo db with node js api. When user successfully logins with email and password, all private pages and features restricted to autheticated users will be visible and accessible.
 
 ![image](https://github.com/rittos/moviesApp/blob/develop/images/auth_favoritespage.png)
 ![image](https://github.com/rittos/moviesApp/blob/develop/images/auth_authenticated_favorites.png)
 
-Authenticated user will have access to private pages Favorites and Fantasy Movie.
+> Authenticated user will have access to private pages Favorites and Fantasy Movie.
 
 ![image](https://github.com/rittos/moviesApp/blob/develop/images/auth_home.png)
 ![image](https://github.com/rittos/moviesApp/blob/develop/images/auth_authenticated_home.png)
 
-"Add favorite icon" in all movie listing page will only be available to authenticated user.
-
-
-## Algorithm (if relevant).
-
-[State the purpose of the algorithm you chose to implement and explain, in general, the computation model used.]
+> "Add favorite icon" in all movie listing page will only be available to authenticated user.
 
 ## Additional Information.
 
 ![image](https://github.com/rittos/moviesApp/blob/develop/images/modal_popup_component.png)
-Added modal pop up compoent for listing popular people which is reused across multiple pages (Movie Search page & Fantasy Movie page)
+> Added modal pop up compoent for listing popular people which is reused across multiple pages (Movie Search page & Fantasy Movie page)
 
 ![image](https://github.com/rittos/moviesApp/blob/develop/images/conditional_rendering_image1.png)
 ![image](https://github.com/rittos/moviesApp/blob/develop/images/conditional_rendering_image2.png)
 
-Added conditional rendering for fantasymovie page.Same route is rendering different template based on condition provided.
+> Added conditional rendering for fantasymovie page.Same route is rendering different template based on condition provided.
