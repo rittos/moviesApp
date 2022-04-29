@@ -6,39 +6,106 @@ __Name:__ [Ritto Thimothy]
 
 [A bullet-point list of the features developed for the React SPA app (new/modified ones only for the Movies app),]
 
-+ Feature X.
-+ Feature Y. 
-+ etc.
++ Popular People
++ People details
++ People Movie Credits
++ Movie Search Form
++ Add Fantasy Movie
++ Fantasy Movie Listing
++ Fantasy Movie Details
++ Login & Sign Up
 
 ## Feature Design.
 
 [For each feature listed in the overview, show a screenshot(s) of its UI layout (use appropriate magnification for accessibility). Include a caption and specify its URL path.]
 
-e.g. 
-__The Upcoming Movies feature.__
+__Popular People.__
+__The Popular People feature.__
 
 
-![][image1]
+![][popular_people]
 
-> Lists movies from the Upcoming movies endpoint of TMDB
+> Lists of people from the popular people endpoint of TMDB
 
-__URL:__ /movies/upcoming
-__Movie Reviews.__
+__URL:__ /people/popular
 
-__Movies Reviews feature.__
+__People Details.__
+__People Details feature.__
 
-![][image2]
+![][people_details]
 
-> Lists all the reviews for a particular movie (text extract only).
+> fetch individual people details including image and texts.
 
-__URL:__/movies/:id
+__URL:__ /people/:id
+
+__People Movie Credits.__
+__People Movie Credits feature.__
+
+![][people_movie_credits]
+
+> fetch movie credits with movie image of individual people in people details screen.
+
+__URL:__ /people/:id
+
+__Movie Search Form.__
+__Movie Search Form feature.__
+
+![][movie_search_form]
+![][movie_search_modal]
+
+> Lists all movies based on filter criteria selected from form inputs, includes option to select actors from modal popup.
+
+__URL:__ /movies/searchmovie
 
 
-![][image3]
+__Add Fantasy Movie.__
+__Add Fantasy Movie feature.__
 
-> Shows the full text of a review for a movie. 
+![][add_fantasy_movie_image1.png]
+![][add_fantasy_movie_image2.png]
 
-__URL:__/reviews/:id
+> Provides option to create a fantasy movie, includes cast selection from popup modal.
+
+__URL:__ /fantasymovie
+
+__Fantasy Movie Listing.__
+__Fantasy Movie Listing feature.__
+
+![][fantasy_movie]
+
+> Display logged in user created fantasy movie with hyperlink to details.
+
+__URL:__ /fantasymovie
+
+__Fantasy Movie Details.__
+__Fantasy Movie Details feature.__
+
+![][fantasy_movie_details]
+
+> fetch fantasy movie details including casts images in card 
+
+__URL:__ /fantasymoviedetails/:id
+
+__Login & Sign Up.__
+__Login & Sign Up feature.__
+
+![][login]
+![][signup]
+
+> allows user to login to website and register a new account if needed.And also restricts features favorite only for authenticated users. Includes publicand private page implementation as well.
+
+__URL:__ /login
+__URL:__ /signup
+
+__Sorting & Filtering.__
+__Sorting & Filtering feature.__
+
+![][filter_and_sort]
+
+> User can filter movies based on Language & Genre and include sorting based on movie title
+
+__URL:__ /
+
 
 ## Storybook.
 
