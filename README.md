@@ -14,6 +14,7 @@ __Name:__ [Ritto Thimothy]
 + Fantasy Movie Listing
 + Fantasy Movie Details
 + Login & Sign Up
++ Pagination
 
 ## Feature Design.
 
@@ -23,7 +24,7 @@ __Popular People.__
 __The Popular People feature.__
 
 
-![][popular_people]
+![][https://github.com/rittos/moviesApp/blob/develop/images/popular_people.png]
 
 > Lists of people from the popular people endpoint of TMDB
 
@@ -102,7 +103,17 @@ __Sorting & Filtering feature.__
 
 ![][filter_and_sort]
 
-> User can filter movies based on Language & Genre and include sorting based on movie title
+> User can filter movies based on Language & Genre, include sorting based on movie title
+
+__URL:__ /
+
+__Pagination.__
+__Pagination feature.__
+
+![][movies_pagination]
+![][peoples_pagination]
+
+> Pagination added across multiple screen including movie listing, people listing and movie search form page.
 
 __URL:__ /
 
