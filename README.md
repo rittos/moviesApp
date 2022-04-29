@@ -6,6 +6,10 @@ __Name:__ [Ritto Thimothy]
 
 [A bullet-point list of the features developed for the React SPA app (new/modified ones only for the Movies app),]
 
++ Upcoming Movies
++ Now Playing Movies
++ Top Rated Movies
++ Latest People
 + Popular People
 + People details
 + People Movie Credits
@@ -18,7 +22,41 @@ __Name:__ [Ritto Thimothy]
 
 ## Feature Design.
 
-[For each feature listed in the overview, show a screenshot(s) of its UI layout (use appropriate magnification for accessibility). Include a caption and specify its URL path.]
+__Upcoming Movies.__
+__The Upcoming Movies feature.__
+
+![image](https://github.com/rittos/moviesApp/blob/develop/images/upcoming_movies.png)
+
+> Lists of upcoming movies from tmdb end point
+
+__URL:__ /movies/upcoming
+
+__Now Playing Movies.__
+__Now Playing Movies feature.__
+
+![image](https://github.com/rittos/moviesApp/blob/develop/images/nowplaying_movies.png)
+
+> Lists of now playing movies from tmdb end point
+
+__URL:__ /movies/nowplaying
+
+__Top Rated Movies.__
+__Top rated Movies feature.__
+
+![image](https://github.com/rittos/moviesApp/blob/develop/images/toprated_movies.png)
+
+> Lists of top rated movies from tmdb end point
+
+__URL:__ /movies/toprated
+
+__Popular People.__
+__The Popular People feature.__
+
+![image](https://github.com/rittos/moviesApp/blob/develop/images/latest_people.png)
+
+> Retreives latest person added from tmdb end point
+
+__URL:__ /people/latest
 
 __Popular People.__
 __The Popular People feature.__
@@ -118,13 +156,12 @@ __URL:__ /
 
 
 ## Storybook.
+![image](https://github.com/rittos/moviesApp/blob/develop/images/story_overview.png)
+![image](https://github.com/rittos/moviesApp/blob/develop/images/story_peoplecard.png)
+![image](https://github.com/rittos/moviesApp/blob/develop/images/story_peoplecard_exception.png)
 
-[Include a screenshot(s) from the Storybook UI and highlight the stories for new components developed.]
-
-e.g.
-
-![][image5]
-
+![image](https://github.com/rittos/moviesApp/blob/develop/images/story_peopledetails.png)
+![image](https://github.com/rittos/moviesApp/blob/develop/images/story_peopleheader.png)
 
 ### Server state caching.
 
