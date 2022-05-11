@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import { useQuery } from "react-query";
-import { searchMovies, getGenres, getLanguages } from "../api/tmdb-api";
+import {getGenres, getLanguages, searchMovies } from "../api/movie-api";
 import Spinner from "../components/spinner";
 import Grid from "@material-ui/core/Grid";
 import MenuItem from "@material-ui/core/MenuItem";

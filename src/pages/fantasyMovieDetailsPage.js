@@ -10,7 +10,7 @@ import Grid from "@material-ui/core/Grid";
 import CloseIcon from '@material-ui/icons/Close';
 import TextField from '@material-ui/core/TextField';
 import { useQuery } from "react-query";
-import { getGenres } from "../api/tmdb-api";
+import { getGenres } from "../api/movie-api";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
@@ -19,7 +19,7 @@ import Button from "@material-ui/core/Button";
 import { AuthContext } from "../contexts/authContext";
 import { getFantasyMovie} from "../api/movie-api";
 import InputAdornment from '@material-ui/core/InputAdornment';
-import { getPeopleById } from '../api/tmdb-api'
+import { getPeopleById } from '../api/people-api'
 
 const useStyles = makeStyles((theme) => ({
   card: { maxWidth: 380,minHeight:300, margin:10 },

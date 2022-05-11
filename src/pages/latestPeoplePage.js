@@ -1,5 +1,5 @@
 import React from "react";
-import { getLatestPeoples } from "../api/tmdb-api";
+import { getLatestPeoples } from "../api/people-api";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
 import Card from "@material-ui/core/Card";

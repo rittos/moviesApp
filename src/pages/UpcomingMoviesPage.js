@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import PageTemplate from '../components/templateMovieListPage'
-import { getUpcomingMovies } from "../api/tmdb-api";
+import { getUpcomingMovies } from "../api/movie-api";
 import { useQuery } from "react-query";
 import AddToFavouritesIcon from '../components/cardIcons/addToFavourites'
 import useFiltering from "../hooks/useFiltering";
