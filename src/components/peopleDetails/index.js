@@ -5,7 +5,7 @@ import CakeIcon from '@material-ui/icons/Cake';
 import Container from "@material-ui/core/Container";
 import PlaceIcon from '@material-ui/icons/Place';
 import Button from "@material-ui/core/Button";
-import { getMovieCredits } from "../../api/tmdb-api";
+import { getMovieCredits } from "../../api/people-api";
 import { useQuery } from "react-query";
 import Grid from "@material-ui/core/Grid";
 import { useParams } from "react-router-dom";

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PageTemplate from "../components/templateMovieListPage";
-import { getMovies } from "../api/tmdb-api";
+import { getMovies } from "../api/movie-api";
 import useSorting from "../hooks/useSorting";
 import useFiltering from "../hooks/useFiltering";
 import { useQuery } from "react-query";
