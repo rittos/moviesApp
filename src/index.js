@@ -50,7 +50,7 @@ const App = () => {
         <PrivateRoute exact path="/fantasymoviedetails/:id" component={FantasyMovieDetails} />
         <Route exact path="/people/popular" component={PopularPeoplesPage} />
         <Route exact path="/people/latest" component={LatestPeoples} />
-        <Route path="/people/:id" component={peoplePage} />
+        <PrivateRoute path="/people/:id" component={peoplePage} />
         <Route exact path="/reviews/form" component={AddMovieReviewPage} />
         <Route exact path="/movies/upcoming" component={UpcomingMoviesPage} /> 
         <Route exact path="/movies/toprated" component={TopRatedMovies} /> 

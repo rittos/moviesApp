@@ -11,9 +11,12 @@ const MoviesContextProvider = (props) => {
   const authcontext = useContext(AuthContext);
   
   useEffect(() => {
+    if(authcontext.userid !== ""){
       getFavouriteMovies(authcontext.userid).then((resp) => {
         setFavourites(resp);
+      
     });
+  }
   }, [authcontext.userid]);
   
   const addToFavourites = async (movie) => {
