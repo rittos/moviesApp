@@ -55,6 +55,7 @@ const SiteHeader = () => {
 
   const handlelogout= (e) =>{
     console.log("logout");
+    localStorage.clear(); //for clearing localStorage
     if(authcontext != null){
     authcontext.signout();
     }

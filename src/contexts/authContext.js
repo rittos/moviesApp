@@ -1,4 +1,4 @@
-import React, { useState, createContext } from "react";
+import React, { useState, createContext, useEffect } from "react";
 import { login, signup, getAccountByEmail } from "../api/movie-api";
 
 export const AuthContext = createContext(null);
@@ -15,6 +15,35 @@ const AuthContextProvider = (props) => {
     localStorage.setItem("token", data);
     setAuthToken(data);
   }
+  const saveUserDatatoLocal = (userid, email) => {
+    localStorage.setItem("userid", userid);
+    localStorage.setItem("email", email);
+  }
+
+  const checkAlreadyAuthentictad = () => {
+     const token = window.localStorage.getItem('token')
+     const userid = window.localStorage.getItem('userid')
+     const email = window.localStorage.getItem('email')
+     if(token != null)
+     {
+      setToken(token);
+      setIsAuthenticated(true);
+     }
+     if(userid != null)
+     {
+      setUserId(userid);
+     }
+     if(email != null)
+     {
+      setEmail(email);
+     }
+  }
+
+  useEffect(() => {
+    checkAlreadyAuthentictad();
+  }, []);
+
+  
 
   // const getAccountByEmail = async (email) => {
 
@@ -30,6 +59,7 @@ const AuthContextProvider = (props) => {
       // getAccountByEmail();
       const resultAccount = await getAccountByEmail(email);
       setUserId(resultAccount.id);
+      saveUserDatatoLocal(resultAccount.id, email )
     }
   };
 
