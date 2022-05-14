@@ -4,7 +4,7 @@ export const getPopularPeoples = async (args) => {
     const res = await fetch(
         `/api/people?&page=${page}`, {
             headers: {
-                'token': window.localStorage.getItem('token')
+                'Authorization': window.localStorage.getItem('token')
             }
         }
     )
@@ -14,7 +14,7 @@ export const getPeopleById = async (id) => {
     return await fetch(`/api/people/${id}`, {
         headers: {
             'Content-Type': 'application/json',
-            'token': window.localStorage.getItem('token')
+            'Authorization': window.localStorage.getItem('token')
         },
         method: 'get',
     }).then(res => res.json())
@@ -25,7 +25,7 @@ export const getMovieCredits = async ({ queryKey }) => {
     return await fetch(`/api/people/${id}/movie_credits`, {
         headers: {
             'Content-Type': 'application/json',
-            'token': window.localStorage.getItem('token')
+            'Authorization': window.localStorage.getItem('token')
         },
         method: 'get',
     }).then(res => res.json())
@@ -34,7 +34,7 @@ export const getLatestPeoples = async () => {
     return await fetch(`/api/people/latest/all`, {
         headers: {
             'Content-Type': 'application/json',
-            'token': window.localStorage.getItem('token')
+            'Authorization': window.localStorage.getItem('token')
         },
         method: 'get',
     }).then(res => res.json())
@@ -46,7 +46,7 @@ export const getPeopleDetails = async (args) => {
     return await fetch(`/api/people/${id}`, {
         headers: {
             'Content-Type': 'application/json',
-            'token': window.localStorage.getItem('token')
+            'Authorization': window.localStorage.getItem('token')
         },
         method: 'get',
     }).then(res => res.json())
