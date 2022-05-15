@@ -70,7 +70,25 @@ export const addFantasyMovie = (userId, name, genreId, runtime, overview, releas
         body: JSON.stringify({ userId: userId, name: name, genreId: genreId, runtime: runtime, overview: overview, releaseDt: releaseDt,actorIds: actorIds })
     }).then(res => res.json())
 };
-
+export const updateFantasyMovie = (userId, name, genreId, runtime, overview, releaseDt, actorIds) => {
+    return fetch(`/api/movies//${userId}/fantasymovie`, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': window.localStorage.getItem('token')
+        },
+        method: 'put',
+        body: JSON.stringify({ userId: userId, name: name, genreId: genreId, runtime: runtime, overview: overview, releaseDt: releaseDt,actorIds: actorIds })
+    }).then(res => res.json())
+};
+export const deleteFantasyMovie = (userId) => {
+    return fetch(`/api/movies//${userId}/fantasymovie`, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': window.localStorage.getItem('token')
+        },
+        method: 'delete'
+    }).then(res => res)
+};
 export const uploadPosterforFantasyMovie = (formdata, userId) => {
     return fetch(`/api/movies//${userId}/fantasymovie/uploadposter`, {
         headers: {
@@ -81,6 +99,7 @@ export const uploadPosterforFantasyMovie = (formdata, userId) => {
         body: formdata
     }).then(res => res.json())
 };
+
 export const getFantasyMovie = (userid) => {
     return fetch(`/api/movies/${userid}/fantasymovie`, {
         headers: {
