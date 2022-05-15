@@ -19,7 +19,7 @@ import { AuthContext } from "../../contexts/authContext";
 import TextField from '@material-ui/core/TextField';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Redirect, useHistory} from 'react-router-dom';
+import { useHistory} from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   card: { maxWidth: 155,minHeight:350, margin:10 },
@@ -54,7 +54,6 @@ export default function FantasyMovieGenerator({ movie }) {
     }
   }
   const handleAddActor = (actor) => {
-    // peoples[0] = actor;
     let updatedactorsIds = [...actorIds];
     if (!updatedactorsIds.includes(actor.id)) {
       updatedactorsIds.push(actor.id);
@@ -73,13 +72,12 @@ export default function FantasyMovieGenerator({ movie }) {
   }
 
   const handleRuntimeChange = (e) => {
-     const re = /^\d+(\.\d{0,1})?$/ ;// /^[0-9\b]+$/;
+     const re = /^\d+(\.\d{0,1})?$/ ;
     if (e.target.value === '' || re.test(e.target.value)) {
       setRuntime(e.target.value)
     } };       
 
   const handleGenreChange = (e) => {
-    //handleUserImput(e, "genre", e.target.value);
     setGenreId(e.target.value);
   };
 

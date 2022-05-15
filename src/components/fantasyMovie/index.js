@@ -13,7 +13,9 @@ import Avatar from "@material-ui/core/Avatar";
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import Button from "@material-ui/core/Button";
 import { AuthContext } from "../../contexts/authContext";
-import {uploadPosterforFantasyMovie} from "../../api/movie-api";
+import {uploadPosterforFantasyMovie, deleteFantasyMovie} from "../../api/movie-api";
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import {useHistory} from 'react-router-dom';
 
 const useStyles = makeStyles({
   card: { maxWidth: 400 },
@@ -26,6 +28,8 @@ const useStyles = makeStyles({
 
 export default function FantasyMovieCard({ movie }) {
   const classes = useStyles();
+  const history = useHistory();
+
   const [posterImage, setPosterImage] = useState([]);
   const [loadedposterImage, setloadedPosterImage] = useState([]);
   const authcontext = useContext(AuthContext);
@@ -35,7 +39,7 @@ const uploadposter =  async () => {
   const formData = new FormData()
   formData.append('posterImage', posterImage);
   const result = await uploadPosterforFantasyMovie(formData, authcontext.userid);
-  window.location.reload();
+  history.push("/");
 }
 
 const arrayBufferToBase64 =(buffer) => {
@@ -56,6 +60,11 @@ useEffect(() => {
 
 const onFileChange = (e) => {
   setPosterImage(e.target.files[0])
+}
+
+const deleteClick= async()=>{
+  const result = await deleteFantasyMovie(authcontext.userid);
+   history.push("/");
 }
 
   return (
@@ -99,18 +108,27 @@ const onFileChange = (e) => {
           </Grid>
         </Grid>
       </CardContent>
-      <Link
-      to={{
-        pathname: `/fantasymoviedetails/${movie.userId}`,
-      }}
-    >
-      View details
-      
-    </Link>
-   
+      <CardContent>
+        <Grid container>
+          <Grid item xs={9}>
+            <Link
+            to={{
+              pathname: `/fantasymoviedetails/${movie.userId}`,
+            }}
+          >
+            View details
+            
+          </Link>
+        </Grid>
+        <Grid item xs={3}>
+          <DeleteForeverIcon onClick={deleteClick} fontSize="large" style={{color:"red"}}></DeleteForeverIcon>
+        </Grid>
+      </Grid>
+      </CardContent>
     <form encType="multipart/form-data" action="">
     <Grid container style={{ marginTop: 10,marginBottom:10 }}>
       <Grid item xs={8}>
+        <label>Select a file to change poster</label>
         <input type="file" onChange={onFileChange} />
       </Grid>
       <Grid item xs={4}>
@@ -120,7 +138,7 @@ const onFileChange = (e) => {
                 padding: "5px 5px 5px",
                 fontSize: "10px",
                 color: "white"
-            }}>Change Poster</Button>
+            }}>Upload</Button>
       </Grid>
      </Grid>
       </form>
