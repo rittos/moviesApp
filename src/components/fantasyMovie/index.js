@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useContext,useEffect} from "react";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -11,6 +11,9 @@ import CalendarIcon from "@material-ui/icons/CalendarTodayTwoTone";
 import Grid from "@material-ui/core/Grid";
 import Avatar from "@material-ui/core/Avatar";
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
+import Button from "@material-ui/core/Button";
+import { AuthContext } from "../../contexts/authContext";
+import {uploadPosterforFantasyMovie} from "../../api/movie-api";
 
 const useStyles = makeStyles({
   card: { maxWidth: 400 },
@@ -20,8 +23,41 @@ const useStyles = makeStyles({
   },
 });
 
+
 export default function FantasyMovieCard({ movie }) {
   const classes = useStyles();
+  const [posterImage, setPosterImage] = useState([]);
+  const [loadedposterImage, setloadedPosterImage] = useState([]);
+  const authcontext = useContext(AuthContext);
+  
+
+const uploadposter =  async () => {
+  const formData = new FormData()
+  formData.append('posterImage', posterImage);
+  const result = await uploadPosterforFantasyMovie(formData, authcontext.userid);
+  window.location.reload();
+}
+
+const arrayBufferToBase64 =(buffer) => {
+  var binary = '';
+  var bytes = [].slice.call(new Uint8Array(buffer));
+  bytes.forEach((b) => binary += String.fromCharCode(b));
+  return window.btoa(binary);
+};
+
+useEffect(() => {
+  if(movie.posterimage !== undefined){
+    var base64Flag = 'data:image/jpeg;base64,';
+    var imageStr = arrayBufferToBase64(movie.posterimage.img.data.data); 
+    setloadedPosterImage(base64Flag + imageStr);
+  }
+}, [movie.posterimage]);
+
+
+const onFileChange = (e) => {
+  setPosterImage(e.target.files[0])
+}
+
   return (
     <Card className={classes.card}>
       <CardHeader
@@ -39,11 +75,11 @@ export default function FantasyMovieCard({ movie }) {
         </Typography>
       }
     />
-      <CardMedia
+        <CardMedia
         className={classes.media}
         image={
-          movie.poster_path
-            ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
+          loadedposterImage.length > 0
+            ? loadedposterImage
             : `${process.env.PUBLIC_URL}/assets/film-poster-placeholder.png`
         }
       />
@@ -69,7 +105,26 @@ export default function FantasyMovieCard({ movie }) {
       }}
     >
       View details
+      
     </Link>
+   
+    <form encType="multipart/form-data" action="">
+    <Grid container style={{ marginTop: 10,marginBottom:10 }}>
+      <Grid item xs={8}>
+        <input type="file" onChange={onFileChange} />
+      </Grid>
+      <Grid item xs={4}>
+        <Button onClick={uploadposter} variant="contained" style={{
+                borderRadius: 8,
+                backgroundColor: "#d53855",
+                padding: "5px 5px 5px",
+                fontSize: "10px",
+                color: "white"
+            }}>Change Poster</Button>
+      </Grid>
+     </Grid>
+      </form>
+      
     </Card>
   );
 }
