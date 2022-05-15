@@ -71,7 +71,16 @@ export const addFantasyMovie = (userId, name, genreId, runtime, overview, releas
     }).then(res => res.json())
 };
 
-
+export const uploadPosterforFantasyMovie = (formdata, userId) => {
+    return fetch(`/api/movies//${userId}/fantasymovie/uploadposter`, {
+        headers: {
+            // "Content-Type": "multipart/form-data",
+            'Authorization': window.localStorage.getItem('token')
+        },
+        method: 'post',
+        body: formdata
+    }).then(res => res.json())
+};
 export const getFantasyMovie = (userid) => {
     return fetch(`/api/movies/${userid}/fantasymovie`, {
         headers: {
