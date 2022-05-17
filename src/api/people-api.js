@@ -1,8 +1,10 @@
+const API_BASE_URL= process.env.REACT_APP_AZURE_API_BASE_URL
+
 export const getPopularPeoples = async (args) => {
     const [, pagePart] = args.queryKey;
     const { page } = pagePart;
     const res = await fetch(
-        `/api/people?&page=${page}`, {
+        `${API_BASE_URL}/api/people?&page=${page}`, {
             headers: {
                 'Authorization': window.localStorage.getItem('token')
             }
@@ -11,7 +13,7 @@ export const getPopularPeoples = async (args) => {
     return res.json();
 };
 export const getPeopleById = async (id) => {
-    return await fetch(`/api/people/${id}`, {
+    return await fetch(`${API_BASE_URL}/api/people/${id}`, {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': window.localStorage.getItem('token')
@@ -22,7 +24,7 @@ export const getPeopleById = async (id) => {
 export const getMovieCredits = async ({ queryKey }) => {
     const [, idPart] = queryKey;
     const { id } = idPart;
-    return await fetch(`/api/people/${id}/movie_credits`, {
+    return await fetch(`${API_BASE_URL}/api/people/${id}/movie_credits`, {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': window.localStorage.getItem('token')
@@ -31,7 +33,7 @@ export const getMovieCredits = async ({ queryKey }) => {
     }).then(res => res.json())
 };
 export const getLatestPeoples = async () => {
-    return await fetch(`/api/people/latest/all`, {
+    return await fetch(`${API_BASE_URL}/api/people/latest/all`, {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': window.localStorage.getItem('token')
@@ -43,7 +45,7 @@ export const getLatestPeoples = async () => {
 export const getPeopleDetails = async (args) => {
     const [, idPart] = args.queryKey;
     const { id } = idPart;
-    return await fetch(`/api/people/${id}`, {
+    return await fetch(`${API_BASE_URL}/api/people/${id}`, {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': window.localStorage.getItem('token')

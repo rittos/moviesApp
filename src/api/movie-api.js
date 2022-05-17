@@ -1,5 +1,7 @@
+const API_BASE_URL= process.env.REACT_APP_AZURE_API_BASE_URL
+
 export const signup = (email, password, firstName, lastName) => {
-    return fetch('/api/accounts', {
+    return fetch(`${API_BASE_URL}/api/accounts`, {
         headers: {
             'Content-Type': 'application/json'
         },
@@ -9,7 +11,7 @@ export const signup = (email, password, firstName, lastName) => {
 };
 
 export const login = (email, password) => {
-    return fetch('/api/accounts/security/token', {
+    return fetch(`${API_BASE_URL}/api/accounts/security/token`, {
         headers: {
             'Content-Type': 'application/json'
         },
@@ -19,7 +21,7 @@ export const login = (email, password) => {
 };
 
 export const addMovietoFavourites = (userid, movieid) => {
-    return fetch(`/api/accounts/${userid}/favourites`, {
+    return fetch(`${API_BASE_URL}/api/accounts/${userid}/favourites`, {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': window.localStorage.getItem('token')
@@ -30,7 +32,7 @@ export const addMovietoFavourites = (userid, movieid) => {
 };
 
 export const removeFromFavorites = (userid, movieid) => {
-    return fetch(`/api/accounts/deleteFavourite`, {
+    return fetch(`${API_BASE_URL}/api/accounts/deleteFavourite`, {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': window.localStorage.getItem('token')
@@ -41,7 +43,7 @@ export const removeFromFavorites = (userid, movieid) => {
 };
 
 export const getFavouriteMovies = (userid) => {
-    return fetch(`/api/accounts/${userid}/favourites`, {
+    return fetch(`${API_BASE_URL}/api/accounts/${userid}/favourites`, {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': window.localStorage.getItem('token')
@@ -51,7 +53,7 @@ export const getFavouriteMovies = (userid) => {
 };
 
 export const getAccountByEmail = (email) => {
-    return fetch(`/api/accounts/email/${email}`, {
+    return fetch(`${API_BASE_URL}/api/accounts/email/${email}`, {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': window.localStorage.getItem('token')
@@ -61,7 +63,7 @@ export const getAccountByEmail = (email) => {
 };
 
 export const addFantasyMovie = (userId, name, genreId, runtime, overview, releaseDt, actorIds) => {
-    return fetch(`/api/movies//${userId}/fantasymovie`, {
+    return fetch(`${API_BASE_URL}/api/movies//${userId}/fantasymovie`, {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': window.localStorage.getItem('token')
@@ -71,17 +73,17 @@ export const addFantasyMovie = (userId, name, genreId, runtime, overview, releas
     }).then(res => res.json())
 };
 export const updateFantasyMovie = (userId, name, genreId, runtime, overview, releaseDt, actorIds) => {
-    return fetch(`/api/movies//${userId}/fantasymovie`, {
+    return fetch(`${API_BASE_URL}/api/movies//${userId}/fantasymovie`, {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': window.localStorage.getItem('token')
         },
         method: 'put',
         body: JSON.stringify({ userId: userId, name: name, genreId: genreId, runtime: runtime, overview: overview, releaseDt: releaseDt,actorIds: actorIds })
-    }).then(res => res.json())
+    }).then(res => res)
 };
 export const deleteFantasyMovie = (userId) => {
-    return fetch(`/api/movies//${userId}/fantasymovie`, {
+    return fetch(`${API_BASE_URL}/api/movies//${userId}/fantasymovie`, {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': window.localStorage.getItem('token')
@@ -90,7 +92,7 @@ export const deleteFantasyMovie = (userId) => {
     }).then(res => res)
 };
 export const uploadPosterforFantasyMovie = (formdata, userId) => {
-    return fetch(`/api/movies//${userId}/fantasymovie/uploadposter`, {
+    return fetch(`${API_BASE_URL}/api/movies//${userId}/fantasymovie/uploadposter`, {
         headers: {
             // "Content-Type": "multipart/form-data",
             'Authorization': window.localStorage.getItem('token')
@@ -101,7 +103,7 @@ export const uploadPosterforFantasyMovie = (formdata, userId) => {
 };
 
 export const getFantasyMovie = (userid) => {
-    return fetch(`/api/movies/${userid}/fantasymovie`, {
+    return fetch(`${API_BASE_URL}/api/movies/${userid}/fantasymovie`, {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': window.localStorage.getItem('token')
@@ -114,7 +116,7 @@ export const getMovies = async (args) => {
     const [, pagePart] = args.queryKey;
     const { page } = pagePart;
     const res = await fetch(
-        `/api/movies?&page=${page}`, {
+        `${API_BASE_URL}/api/movies?&page=${page}`, {
             headers: {
                 'Authorization': window.localStorage.getItem('token')
             }
@@ -126,7 +128,7 @@ export const getMovies = async (args) => {
 export const getMovie = async (args) => {
     const [, idPart] = args.queryKey;
     const { id } = idPart;
-    return await fetch(`/api/movies/${id}`, {
+    return await fetch(`${API_BASE_URL}/api/movies/${id}`, {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': window.localStorage.getItem('token')
@@ -136,7 +138,7 @@ export const getMovie = async (args) => {
 };
 
 export const getGenres = async () => {
-    return await fetch(`/api/movies/genres/all`, {
+    return await fetch(`${API_BASE_URL}/api/movies/genres/all`, {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': window.localStorage.getItem('token')
@@ -147,7 +149,7 @@ export const getGenres = async () => {
 export const getMovieImages = async ({ queryKey }) => {
     const [, idPart] = queryKey;
     const { id } = idPart;
-    return await fetch(`/api/movies/${id}/movie_images`, {
+    return await fetch(`${API_BASE_URL}/api/movies/${id}/movie_images`, {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': window.localStorage.getItem('token')
@@ -156,7 +158,7 @@ export const getMovieImages = async ({ queryKey }) => {
     }).then(res => res.json())
 };
 export const getMovieReviews = async (id) => {
-    return await fetch(`/api/movies/${id}/movie_reviews`, {
+    return await fetch(`${API_BASE_URL}/api/movies/${id}/movie_reviews`, {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': window.localStorage.getItem('token')
@@ -171,7 +173,7 @@ export const getUpcomingMovies = async (args) => {
     const [, pagePart] = args.queryKey;
     const { page } = pagePart;
     const res = await fetch(
-        `/api/movies/upcoming/all?&page=${page}`, {
+        `${API_BASE_URL}/api/movies/upcoming/all?&page=${page}`, {
             headers: {
                 'Authorization': window.localStorage.getItem('token')
             }
@@ -180,7 +182,7 @@ export const getUpcomingMovies = async (args) => {
     return res.json();
 };
 export const getLanguages = async () => {
-    return await fetch(`/api/movies/languages/all`, {
+    return await fetch(`${API_BASE_URL}/api/movies/languages/all`, {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': window.localStorage.getItem('token')
@@ -196,7 +198,7 @@ export const searchMovies = async (args) => {
     const actorId = castPart['actorId']
     const adult = adultPart['adult']
     const res = await fetch(
-        `/api/movies/search/all?&page=${page}&with_genres=${genreId}&language=${languageId}&with_cast=${actorId}&include_adult=${adult}`, {
+        `${API_BASE_URL}/api/movies/search/all?&page=${page}&with_genres=${genreId}&language=${languageId}&with_cast=${actorId}&include_adult=${adult}`, {
             headers: {
                 'Authorization': window.localStorage.getItem('token')
             }
@@ -208,7 +210,7 @@ export const getTopRatedMovies = async (args) => {
     const [, pagePart] = args.queryKey;
     const { page } = pagePart;
     const res = await fetch(
-        `/api/movies/top/rated?&page=${page}`, {
+        `${API_BASE_URL}/api/movies/top/rated?&page=${page}`, {
             headers: {
                 'Authorization': window.localStorage.getItem('token')
             }
@@ -220,7 +222,7 @@ export const getNowPlayingMovies = async (args) => {
     const [, pagePart] = args.queryKey;
     const { page } = pagePart;
     const res = await fetch(
-        `/api/movies//now/playing?&page=${page}`, {
+        `${API_BASE_URL}/api/movies//now/playing?&page=${page}`, {
             headers: {
                 'Authorization': window.localStorage.getItem('token')
             }
